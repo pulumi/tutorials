@@ -12,10 +12,27 @@ You will need the following to complete this tutorial.
 
 ## Tutorial
 
-The tutorial is divided into four sections that guide you to
+The tutorial is divided into four sections that guide you through the process of creating infrastructure with Pulumi, configuring it, and using Pulumi to push your infrastructure to production.
 
-- [create a Pulumi Project](./lab01-Creating_a_Project.md),
-- [build containers](./lab02-Create_and_Run_a_Docker_Container.md),
-- [configure containers for deployment](./lab03-Use_Configuration.md),
-- [and use outputs to from the project.](./lab04-Export_Outpust.md)
+Docker is used in this tutorial to let you learn the basics of Pulumi without an cloud account. You will learn the following:
 
+- [Create a Pulumi Project](./lab-01/Creating_a_Pulumi_Project.md),
+- [Build Docker Images](./lab-02/Create_Docker_Images.md),
+- [Configurig and Provisioning Containers](./lab-03/-Configuring_and_Provisioning_Containers.md),
+- [Exporting Outputs](./lab-04/Exporting_Outputs.md)
+
+## Cloud Specific Tutorials
+
+Cloud specific tutorials use the same topics but tailored to each individual cloud provider.
+
+### AWS
+
+TBD
+
+### Azure
+
+TBD
+
+### Google Cloud
+
+TBD
