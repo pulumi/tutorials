@@ -60,4 +60,4 @@ Feel free to explore the other files, although we won't be editing any of them b
 
 # Next Steps
 
-* [Create your first resource](../lab02-Create_and_Run_a_Docker_Container.md)
+* [Create Docker Images](../lab-02/Create_Docker_Images.md)

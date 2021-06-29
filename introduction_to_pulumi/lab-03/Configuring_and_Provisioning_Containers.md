@@ -212,3 +212,6 @@ mongoimport -d cart -c products --file /tmp/products.json --jsonArray
 
 Open a browser to `http://localhost:3001` and our application is now deployed.
 
+# Next Steps
+
+* [Exporting Outputs](../lab-04/Exporting_Outputs.md)

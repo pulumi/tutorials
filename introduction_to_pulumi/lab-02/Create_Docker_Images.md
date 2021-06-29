@@ -114,4 +114,4 @@ mongo_image = docker.RemoteImage("mongo",
 
 ## Next Steps
 
-* [Use configuration](../lab03-Use_Configuration.md)
+* [Configuring and Provision Containers](../lab-03/Configuring_and_Provisioning_Containers.md)

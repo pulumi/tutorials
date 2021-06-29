@@ -125,4 +125,4 @@ Run `pulumi up`. You'll see the value gets exported from this stack now too.
 
 These exported values are incredibly useful when using Pulumi stacks
 
-Congratulations, you've now finished the introduction to Pulumi walkthrough!
+Congratulations, you've now finished the introduction to Pulumi tutorial!
