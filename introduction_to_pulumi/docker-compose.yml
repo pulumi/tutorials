@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: server
+    container_name: server
+    command: npm start
+    volumes:
+      - ./backend/src/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    env_file: ./backend/src/.env
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+  mongo:
+    image: mongo:latest
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: client
+    container_name: client
+    command: npm start
+    volumes:
+      - ./frontend/client/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local
