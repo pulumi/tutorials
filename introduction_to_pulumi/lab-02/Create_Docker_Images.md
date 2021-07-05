@@ -1,6 +1,6 @@
 # Lab 02 - Create & Run a Docker Containers
 
-In this lab, we'll create our first Pulumi resource. We'll run a Docker containers we build locally using infrastructure as code.
+In this lab, we'll create our first Pulumi resource. We'll run Docker containers that we build locally using infrastructure as code.
 
 ## Step 1 - Verify your application
 
@@ -25,7 +25,7 @@ EXPOSE 3000
 CMD [ "npm", "start" ]
 ```
 
-This `Dockerfile` copies the REST backend into the Docker container and runs it.
+This `Dockerfile` copies the REST backend into the Docker container, installs the dependencies, and builds the image. Note that port 3000 must be open.
 
 ## Step 2 - Build your Docker Image with Pulumi
 
@@ -37,9 +37,9 @@ source venv/bin/activate
 pip3 install pulumi_docker
 ```
 
-You should see some output showing the pip package and the provider being installed
+You should see output showing the pip package and the provider being installed
 
-Back inside your pulumi program, let's build your first Docker image. Inside your Pulumi program's `__main__.py` add the following:
+Back inside your Pulumi Program, let's build your first Docker image. Inside your program's `__main__.py` add the following:
 
 
 ```python
@@ -52,13 +52,18 @@ stack = pulumi.get_stack()
 backend_image_name = "backend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/backend"),
-                        image_name=f"{backend_image_name}:{stack}",,
+                        image_name=f"{backend_image_name}:{stack}",
                         skip_push=True
 )
 ```
-Run `pulumi up` and it should build your docker image
+Run `pulumi up` and it should build your docker image If you run `docker images` you should see your image.
 
-If you run `docker images` you should see your built container.
+Let's review what's going on in the code. The Docker [Image](https://www.pulumi.com/docs/reference/pkg/docker/image/) resource takes the following for inputs"
+
+- name: a name for the Resource we are creating
+- build: the Docker build context, i.e., the path to the app
+- image_name: this is the qualified image name which can include a tag
+- skip_push: flag to push to a registry
 
 Now that we've provisioned our first piece of infrastructure, let's add the other pieces of our application.
 
@@ -74,18 +79,23 @@ backend = docker.Image("backend",
                         image_name=f"{backend_image_name}:{stack}",,
                         skip_push=True
 )
+```
 
+We build the frontend client the same way we built the backend. However, we are going to use the official MongoDB image from Docker Hub, so we use the [RemoteImage](https://www.pulumi.com/docs/reference/pkg/docker/remoteimage/) resource.
+
+```python
 # build our mongodb image!
 mongo_image = docker.RemoteImage("mongo",
                         name="mongo:4.4.6",
                         keep_locally=True)
 ```
 
+
 The complete program looks like this:
 
 ```python
 import pulumi
-from pulumi_docker import Image, DockerBuild
+import pulumi_docker as docker
 
 stack = pulumi.get_stack()
 
@@ -93,7 +103,7 @@ stack = pulumi.get_stack()
 backend_image_name = "backend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/backend"),
-                        image_name=f"{backend_image_name}:{stack}",,
+                        image_name=f"{bimport Image, DockerBuilackend_image_name}:{stack}",,
                         skip_push=True
 )
 
@@ -109,9 +119,9 @@ backend = docker.Image("backend",
 mongo_image = docker.RemoteImage("mongo",
                         name="mongo:4.4.6",
                         keep_locally=True)
-``
+```
 
 
 ## Next Steps
 
-* [Configuring and Provision Containers](../lab-03/Configuring_and_Provisioning_Containers.md)
+* [Configuring and Provisioning Containers](../lab-03/Configuring_and_Provisioning_Containers.md)

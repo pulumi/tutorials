@@ -1,14 +1,14 @@
 # Pulumi Tutorials
 
-This repository contains hands-on tutorials to guide you to using Pulumi build, deploy, and manage cloud infrastructure and applications
+These hands-on tutorials show how to use Pulumi to build, deploy, and manage cloud infrastructure and applications
 
 ## Modules
 
-- [**Introduction to Pulumi**](./introduction_to_pulumi): This topic introduces the key concepts of state, using familiar programming languages and tools, and deploying and configuring resources. You will learn how Pulumi imperative languages in a declarative model through the use of inputs and outputs in the asynchronous environment of the cloud.
+- [**Introduction to Pulumi**](./introduction_to_pulumi): This module introduces the key concepts of state, using familiar programming languages and tools, and deploying and configuring resources. You will learn how Pulumi uses imperative languages in a declarative model through the use of inputs and outputs in the asynchronous environment of the cloud.
 
-- **Pulumi in Practice**: In this second module, users will learn using examples that match a real-world workflow. 
+- **Pulumi in Practice**: In this second module, you will learn how to user Pulumi in a real-world workflow. 
 
-- Pulumi in Operation: This module helps users learn how to manage and operate Pulumi in their organization and team.
+- **Pulumi in Operation**: This module helps shows how to manage and operate Pulumi in their organization and team.
 
 - **Automation API**: This module demonstrates how to use Automation API to automate cloud engineering tasks.
 
