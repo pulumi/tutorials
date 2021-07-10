@@ -45,7 +45,7 @@ Our project is comprised of multiple files:
 
 * **`__main__.py`**: your program's main entrypoint file
 * **`requirements.txt`**: your project's Python dependency information
-* **`Puusers learnlumi.yaml`**: your project's metadata, containing its name and language
+* **`Pulumi.yaml`**: your project's metadata, containing its name and language
 * **`venv`**: a [virtualenv](https://pypi.org/project/virtualenv/) for your project
 
 Run `cat __main__.py` to see the contents of your project's empty program:
@@ -56,7 +56,7 @@ Run `cat __main__.py` to see the contents of your project's empty program:
 import pulumi
 ```
 
-Feel free to explore the other files, although we won't be editing any of them by hand.
+Feel free to explore the other files, although we won't be editing any of them by hand. Note that the Pulumi CLI creates a virtual environment, `venv`, for the project.
 
 # Next Steps
 

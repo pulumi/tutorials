@@ -39,12 +39,13 @@ pip3 install pulumi_docker
 
 You should see output showing the pip package and the provider being installed
 
-Back inside your Pulumi Program, let's build your first Docker image. Inside your program's `__main__.py` add the following:
+Back inside your Pulumi Prograimport pulumi
+m, let's build your first Docker image. Inside your program's `__main__.py` add the following:
 
 
 ```python
 import pulumi
-from pulumi_docker import Image, DockerBuild
+install pulumi_docker as docker
 
 stack = pulumi.get_stack()
 
@@ -90,7 +91,6 @@ mongo_image = docker.RemoteImage("mongo",
                         keep_locally=True)
 ```
 
-
 The complete program looks like this:
 
 ```python
@@ -103,15 +103,15 @@ stack = pulumi.get_stack()
 backend_image_name = "backend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/backend"),
-                        image_name=f"{bimport Image, DockerBuilackend_image_name}:{stack}",,
+                        image_name=f"{backend_image_name}:{stack}",
                         skip_push=True
 )
 
 # build our frontend image!
-backend_image_name = "frontend"
-backend = docker.Image("backend",
+frontend_image_name = "frontend"
+frontend = docker.Image("frontend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",,
+                        image_name=f"{frontend_image_name}:{stack}",
                         skip_push=True
 )
 
@@ -120,7 +120,6 @@ mongo_image = docker.RemoteImage("mongo",
                         name="mongo:4.4.6",
                         keep_locally=True)
 ```
-
 
 ## Next Steps
 
