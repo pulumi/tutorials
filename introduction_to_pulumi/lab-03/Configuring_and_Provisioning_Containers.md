@@ -118,6 +118,8 @@ import pulumi
 import pulumi_docker as docker
 
 stack = pulumi.get_stack()
+config = pulumi.Config()
+
 frontend_port = config.require_int("frontend_port")
 backend_port = config.require_int("backend_port")
 mongo_port = config.require_int("mongo_port")
