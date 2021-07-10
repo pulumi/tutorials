@@ -33,10 +33,10 @@ backend = docker.Image("backend",
 )
 
 # build our frontend image!
-backend_image_name = "frontend"
-backend = docker.Image("backend",
+frontend_image_name = "frontend"
+frontend = docker.Image("frontkend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",
+                        image_name=f"{frontend_image_name}:{stack}",
                         skip_push=True
 )
 
@@ -51,8 +51,9 @@ Try and run your `pulumi up` again at this point. You should see an error like t
 ```
 Diagnostics:
   pulumi:pulumi:Stack (my-first-app-dev):
-    error: Missing required configuration variable 'frontend:frontend_port'
-        please set a value using the command `pulumi config set frontend:frontend_port <value>`
+    error: Missing required configuration variable 'my-first-app:frontend_port'
+        please set a value using the command `pulumi config set my-first-app:frontend_port <value>`
+    error: an unhandled error occurred: Program exited with non-zero exit code: 1
 ```
 
 This is because we have specified that this config option is _required_. Let's set the ports for this stack:
@@ -96,6 +97,7 @@ backend_container = docker.Container("backend_container",
                         )],
                         opts=pulumi.ResourceOptions(depends_on=[mongo_container])
 )
+```
 
 It is important to note something here. In the Container resource, we are referencing `baseImageName` from the `image` resource. Pulumi now knows there is a dependency between these two resources, and will know to create the `container` resource _after_ the image resource. Another dependency to note is that the `backend_container` depends on the `mongo_container`. If we tried to run `pulumi up` without the `mongo_container` running, we would get an error message.
 
@@ -132,10 +134,10 @@ backend = docker.Image("backend",
 )
 
 # build our frontend image!
-backend_image_name = "frontend"
-backend = docker.Image("backend",
+frontend_image_name = "frontend"
+frontend = docker.Image("frontend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",
+                        image_name=f"{frontend_image_name}:{stack}",
                         skip_push=True
 )
 
@@ -149,7 +151,7 @@ network = docker.Network("network",
                         name="services")
 
 # create the backend container!
-backend_container = docker.Container("app_container",
+backend_container = docker.Container("backend_container",
                         image=backend_image.base_image_name,
                         ports=[docker.ContainerPortArgs(
                             internal=backend_port, 
