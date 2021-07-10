@@ -145,8 +145,7 @@ frontend = docker.Image("frontend",
 
 # build our mongodb image!
 mongo_image = docker.RemoteImage("mongo",
-                        name="mongo:4.4.6",
-                        keep_locally=True)
+                        name="mongo:bionic")
 
 # create a network!
 network = docker.Network("network",
@@ -185,7 +184,7 @@ frontend_container = docker.Container("frontend_container",
 
 # create the mongo container
 mongo_container = docker.Container("mongo_container",
-                        image=mongo_image,
+                        image=mongo_image.latest,
                         ports=[docker.ContainerPortArgs(
                           internal=mongo_port, 
                           external=mongo_port

@@ -87,8 +87,7 @@ We build the frontend client the same way we built the backend. However, we are 
 ```python
 # build our mongodb image!
 mongo_image = docker.RemoteImage("mongo",
-                        name="mongo:4.4.6",
-                        keep_locally=True)
+                        name="mongo:bionic")
 ```
 
 The complete program looks like this:
@@ -116,9 +115,8 @@ frontend = docker.Image("frontend",
 )
 
 # build our mongodb image!
-mongo_image = docker.RemoteImage("mongo",
-                        name="mongo:4.4.6",
-                        keep_locally=True)
+mongo_image = docker.RemoteImage("mongo",",
+                        name="mongo:bionic"))
 ```
 
 ## Next Steps
