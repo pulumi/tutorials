@@ -61,7 +61,7 @@ CONTAINER ID        NAME                   CPU %               MEM USAGE / LIMIT
 
 We're now going to use the `pulumi stack` command to understand how stacks work. Let's list our existing stacks using: `pulumi stack ls`
 
-We currently only have 1 stack. Let's add a new one!
+We currently only have one stack. Let's add a new one!
 
 ```bash
 pulumi stack init prod
@@ -72,14 +72,19 @@ Now we have created a pulumi `prod` stack, let's try rerun our `pulumi up`:
 ```
 Diagnostics:
   pulumi:pulumi:Stack (my-first-app-prod):
-    error: Missing required configuration variable 'my-first-app:port'
-        please set a value using the command `pulumi config set my-first-app:port <value>`
+    error: Missing required configuration variable 'my-first-app:frontend_port'
+        please set a value using the command `pulumi config set my-first-app:frontend_port <value>`
 ```
 
 Our configuration error is back! This is because when we configure values in pulumi, they are specific to a stack. So, let's set a port for our prod stack:
 
-```
-pulumi config set port 5000
+```bash
+pulumi config set frontend_port 3001
+pulumi config set backend_port 3000
+pulumi config set mongo_port 27017
+pulumi config set mongo_host mongodb:http://mongo:27017
+pulumi config set database cart
+pulumi config set node_environment development
 ```
 
 Make sure you use a different port to your `dev` stack!
