@@ -151,6 +151,20 @@ mongo_image = docker.RemoteImage("mongo",
 network = docker.Network("network",
                         name="services")
 
+# create the mongo container
+mongo_container = docker.Container("mongo_container",
+                        image=mongo_image.latest,
+                        name="mongo",
+                        ports=[docker.ContainerPortArgs(
+                          internal=mongo_port, 
+                          external=mongo_port
+                        )],
+                        networks_advanced=[docker.ContainerNetworksAdvancedArgs(
+                            name=network.name,
+                            aliases=["mongo"]
+                        )]
+)
+
 # create the backend container!
 backend_container = docker.Container("backend_container",
                         image=backend.base_image_name,
@@ -181,19 +195,6 @@ frontend_container = docker.Container("frontend_container",
                             name=network.name
                         )]
 )
-
-# create the mongo container
-mongo_container = docker.Container("mongo_container",
-                        image=mongo_image.latest,
-                        ports=[docker.ContainerPortArgs(
-                          internal=mongo_port, 
-                          external=mongo_port
-                        )],
-                        networks_advanced=[docker.ContainerNetworksAdvancedArgs(
-                            name=network.name,
-                            aliases=["mongo"]
-                        )]
-)
 ```
 
 Run `pulumi up` and our application is running. However, the store is empty and we need to add products to the database.
@@ -203,7 +204,7 @@ Run `pulumi up` and our application is running. However, the store is empty and 
 We'll use Docker to populate mongodb. First, we will copy the data to the mongodb container, then open a shell in the container and import the data.
 
 ```bash
-docker cp data/products.json mongo:/tmp/products.json
+docker cp ../app/data/products.json mongo:/tmp/products.json
 docker exec -it mongo sh
 ```
 
