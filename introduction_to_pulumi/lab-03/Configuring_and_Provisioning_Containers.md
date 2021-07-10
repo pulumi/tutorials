@@ -2,9 +2,9 @@
 
 Now that we've created our images, we can provision our application with a network and containers.
 
-## Step 1 - Instantiate the config
+## Step 1 - Configure the application
 
-Add the following to your Pulumi program below your imports:
+Add the following configuration variables to your Pulumi program below the imports:
 
 ```python
 config = pulumi.Config()
@@ -16,7 +16,7 @@ Your Pulumi program should now look like this:
 
 ```python
 import pulumi
-impor pulumi_docker as docker
+import pulumi_docker as docker
 
 # get configuration 
 config = pulumi.Config()
@@ -28,7 +28,7 @@ mongo_port = config.require_int("mongo_port")
 backend_image_name = "backend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/backend"),
-                        image_name=f"{backend_image_name}:{stack}",,
+                        image_name=f"{backend_image_name}:{stack}",
                         skip_push=True
 )
 
@@ -36,7 +36,7 @@ backend = docker.Image("backend",
 backend_image_name = "frontend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",,
+                        image_name=f"{backend_image_name}:{stack}",
                         skip_push=True
 )
 
@@ -65,11 +65,11 @@ pulumi config set mongo_port 27017
 
 Now, try and rerun your Pulumi program.
 
-Your Pulumi program should now run, but you're not actually using this newly configured port, yes!
+Your Pulumi program should now run, but you're not actually using this newly configured ports, yet!
 
 ## Step 2 - Create a Container resource
 
-In lab 02 we built Docker images. Now we want to create a Docker containers that run that images and pass our configuration to them. Our containers will need to connect to each other so we will need to create a network.
+In lab 02 we built Docker images. Now we want to create Docker containers and pass our configuration to them. Our containers will need to connect to each other so we will need to create a network.
 
 ```python
 # create a network!
@@ -97,9 +97,9 @@ backend_container = docker.Container("backend_container",
                         opts=pulumi.ResourceOptions(depends_on=[mongo_container])
 )
 
-It's important to note something here. In the Container resource, we are reference `baseImageName` from the `image` resource. Pulumi now knows there's a dependency between these two resources, and will know to create the `container` resource _after_ the image resource. Another dependency to note is that the `backend_container` depends on the `mongo_container`. If we tried to run `pulumi up` without the `mongo_container` running, we would get an error message.
+It is important to note something here. In the Container resource, we are referencing `baseImageName` from the `image` resource. Pulumi now knows there is a dependency between these two resources, and will know to create the `container` resource _after_ the image resource. Another dependency to note is that the `backend_container` depends on the `mongo_container`. If we tried to run `pulumi up` without the `mongo_container` running, we would get an error message.
 
-The backend container also requires several environment variables to connect to the mongo container and set the node environment for Express.js. These are set in `./app/backend/src/.env`. Like before we can set them using `pulumi config`.
+The backend container also requires environment variables to connect to the mongo container and set the node environment for Express.js. These are set in `./app/backend/src/.env`. Like before we can set them using `pulumi config`.
 
 ```bash
 pulumi config set mongo_host http://mongo:27017
