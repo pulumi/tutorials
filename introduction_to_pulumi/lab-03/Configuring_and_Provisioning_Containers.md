@@ -168,6 +168,7 @@ mongo_container = docker.Container("mongo_container",
 # create the backend container!
 backend_container = docker.Container("backend_container",
                         image=backend.base_image_name,
+                        name="backend",
                         ports=[docker.ContainerPortArgs(
                             internal=backend_port, 
                             external=backend_port)],
@@ -185,6 +186,7 @@ backend_container = docker.Container("backend_container",
 # create the frontend container!
 frontend_container = docker.Container("frontend_container",
                         image=frontend.base_image_name,
+                        name="frontend",
                         ports=[docker.ContainerPortArgs(
                             internal=frontend_port, 
                             external=frontend_port)],
@@ -196,6 +198,15 @@ frontend_container = docker.Container("frontend_container",
                         )]
 )
 ```
+
+With Docker networking, we can use image names to refer to a container. In our example, the React frontend client sends requests to the Express backend client. The URL to the backend is set in the client's `package.json` file. If you change the name of the backend container, make sure the client is configured properly.
+
+```json
+  "proxy": "http://backend:3000",
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  },
+  ```
 
 Run `pulumi up` and our application is running. However, the store is empty and we need to add products to the database.
 
