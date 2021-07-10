@@ -83,7 +83,7 @@ Define a new resource in your Pulumi program below the `image` resource, like th
 ```python
 # create the backend container!
 backend_container = docker.Container("backend_container",
-                        image=backend_image.base_image_name,
+                        image=backend.base_image_name,
                         ports=[docker.ContainerPortArgs(
                             internal=backend_port, 
                             external=backend_port)],
@@ -152,7 +152,7 @@ network = docker.Network("network",
 
 # create the backend container!
 backend_container = docker.Container("backend_container",
-                        image=backend_image.base_image_name,
+                        image=backend.base_image_name,
                         ports=[docker.ContainerPortArgs(
                             internal=backend_port, 
                             external=backend_port)],
@@ -169,7 +169,7 @@ backend_container = docker.Container("backend_container",
 
 # create the frontend container!
 frontend_container = docker.Container("frontend_container",
-                        image=frontend_image.base_image_name,
+                        image=frontend.base_image_name,
                         ports=[docker.ContainerPortArgs(
                             internal=frontend_port, 
                             external=frontend_port)],
