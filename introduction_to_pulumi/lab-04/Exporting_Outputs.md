@@ -82,9 +82,9 @@ Our configuration error is back! This is because when we configure values in pul
 pulumi config set frontend_port 3001
 pulumi config set backend_port 3000
 pulumi config set mongo_port 27017
-pulumi config set mongo_host mongodb:http://mongo:27017
+pulumi config set mongo_host mongodb://mongo:27017
 pulumi config set database cart
-pulumi config set node_environment development
+pulumi config set node_environment production
 ```
 
 Make sure you use a different port to your `dev` stack!
