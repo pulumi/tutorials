@@ -2,12 +2,12 @@
 
 This tutorial covered the following:
 
-1. How to create a [Pulumi Project and a Stack](https://github.com/pulumi/tutorials/blob/main/introduction_to_pulumi/lab-01/Creating_a_Pulumi_Project.md#step-2--initialize-your-project).
-2. How to import a Pulumi package.
-3. How to create an application image as a resource.
-4. How to configure resources.
-5. How resources are declared and created.
-6. What is an output and how to export them.
-7. How to work with stacks.
-8. How to create Stack References from outputs.
+1. How to create a [Pulumi Project and a Stack](../lab-01/Creating_a_Pulumi_Project.md#step-2--initialize-your-project).
+1. How to add a [Pulumi package to a Project](https://github.com/pulumi/tutorials/blob/main/introduction_to_pulumi/lab-02/Create_Docker_Images.md#step-2---build-your-docker-image-with-pulumi).
+1. How to create an application image as a resource.
+1. How to configure resources.
+1. How resources are declared and created.
+1. What is an output and how to export them.
+1. How to work with stacks.
+1. How to create Stack References from outputs.
 
