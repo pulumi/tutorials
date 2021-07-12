@@ -76,7 +76,7 @@ Diagnostics:
         please set a value using the command `pulumi config set my-first-app:frontend_port <value>`
 ```
 
-Our configuration error is back! This is because when we configure values in pulumi, they are specific to a stack. So, let's set a port for our prod stack:
+Our configuration error is back! This is because when we configure values in pulumi, they are specific to a stack. So, let's set the `node_environment` to `production` in the prod stack:
 
 ```bash
 pulumi config set frontend_port 3001
@@ -87,13 +87,55 @@ pulumi config set database cart
 pulumi config set node_environment production
 ```
 
-Make sure you use a different port to your `dev` stack!
+You can list your stacks with:
 
-Now, run `pulumi up` again. You should get a whole new image and container, this time running on port 5000!
+```bash
+pulumi stack ls
+NAME   LAST UPDATE    RESOURCE COUNT  URL
+dev    7 minutes ago  0               https://app.pulumi.com/spara/my-first-app/dev
+prod*  3 minutes ago  9               https://app.pulumi.com/spara/my-first-app/prod
+```
 
-## Step 4 - Create a second stack
+The asterisk indicates that this is the current stack. To switch to another stack you can use the `select` command:
 
-In a new directory, create a second stack called `use-docker-id`
+```bash
+pulumi stack select <stack name>
+```
+
+You can also list the stack resources:
+
+```bash
+pulumi stack
+Current stack is prod:
+    Owner: spara
+    Last updated: 2 hours ago (2021-07-10 17:44:24.657842983 -0500 CDT)
+    Pulumi version: v3.6.1
+Current stack resources (9):
+    TYPE                                         NAME
+    pulumi:pulumi:Stack                          my-first-app-prod
+    ├─ docker:image:Image                        backend
+    ├─ docker:image:Image                        frontend
+    ├─ docker:index/network:Network              network
+    ├─ docker:index/remoteImage:RemoteImage      mongo
+    ├─ docker:index/container:Container          mongo_container
+    ├─ docker:index/container:Container          frontend_container
+    ├─ docker:index/container:Container          backend_container
+    └─ pulumi:providers:docker                   default_3_0_0
+
+Current stack outputs (1):
+    OUTPUT        VALUE
+    container_id  ac3312e2ce48d6a268f8a05a757e4fdbd4c520d3b5bd7e3de23130563a33e456
+
+More information at: https://app.pulumi.com/spara/my-first-app/prod
+```
+
+Now, that you have the basics of creating, selecting, examining stacks, and exporting stack outputs, run `pulumi up` again. You should get new images and containers, this time running in production mode!
+
+## Step 4 - Stack References
+
+So what else can do with stack outputs? You can use them with other stacks through a Stack Reference. Stack references allow you to access the outputs of one stack from another stack. Inter-Stack Dependencies allow one stack to reference the outputs of another stack. 
+
+To see how this works, create a second stack called `use-docker-id` in a new directory
 
 ```bash
 mkdir use-docker-id
@@ -120,8 +162,23 @@ stack_ref = pulumi.StackReference(f"{org}/my-first-app/{stack}")
 pulumi.export("containerId", stack_ref.get_output("container_id"))
 ```
 
+Set the `org` environment variable,which is the organization associated with your account.
+
+```bash
+pulumi config set org spara
+```
+
 Run `pulumi up`. You'll see the value gets exported from this stack now too.
 
+```bash
+View Live: https://app.pulumi.com/spara/use-docker-id/dev/updates/20
+
+     Type                 Name               Status     
+     pulumi:pulumi:Stack  use-docker-id-dev             
+ 
+Outputs:
+  + use-docker-id-ref: "5efdabb5ba8b5111f1aabe42d7911a99df5c18c5592d2ff00f7dfeba3930a818"
+```
 These exported values are incredibly useful when using Pulumi stacks
 
 Congratulations, you've now finished the introduction to Pulumi tutorial!
