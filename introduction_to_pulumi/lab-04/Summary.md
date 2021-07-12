@@ -2,7 +2,7 @@
 
 This tutorial covered the following:
 
-1. How to create a [Pulumi Project and a Stack](../lab-01/Creating_a_Pulumi_Project#create_project).
+1. How to create a [Pulumi Project and a Stack](..lab-01/Creating_a_Pulumi_Project.md#step-2--initialize-your-project).
 2. How to import a Pulumi package.
 3. How to create an application image as a resource.
 4. How to configure resources.
