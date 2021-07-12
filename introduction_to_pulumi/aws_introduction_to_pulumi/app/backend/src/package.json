@@ -1,0 +1,49 @@
+{
+  "name": "shopping-cart",
+  "version": "0.0.1",
+  "description": "react shopping cart",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhambattoo/shopping-cart.git"
+  },
+  "keywords": [
+    "react",
+    "javsacript",
+    "nodejs",
+    "mongodb",
+    "shopping-cart",
+    "backend-services",
+    "hooks-api-react",
+    "context-api",
+    "usereducer",
+    "sneakers",
+    "create-react-app",
+    "mern-stack"
+  ],
+  "author": "shubhambattoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhambattoo/shopping-cart/issues"
+  },
+  "homepage": "https://github.com/shubhambattoo/shopping-cart#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.3"
+  }
+}
