@@ -18,7 +18,7 @@ The tutorial is divided into labs that guide you through the process of creating
 
 Docker is used in this tutorial to let you learn the basics of Pulumi without an cloud account. You will learn the following:
 
-- [Create a Pulumi Project](.`/docker_introduction_to_pulumi`/lab-01/Creating_a_Pulumi_Project.md),
+- [Create a Pulumi Project](./docker_introduction_to_pulumi`/lab-01/Creating_a_Pulumi_Project.md),
 - [Build Docker Images](./docker_introduction_to_pulumi/lab-02/Create_Docker_Images.md),
 - [Configurig and Provisioning Containers](./docker_introduction_to_pulumi/lab-03/-Configuring_and_Provisioning_Containers.md),
 - [Exporting Outputs](./docker_introduction_to_pulumi/lab-04/Exporting_Outputs.md)
