@@ -2,7 +2,7 @@
 
 This tutorial covered the following:
 
-1. How to create a [Pulumi Project and a Stack](../lab-01/Creating_a_Pulumi_Project.md#step-2--initialize-your-project).
+1. How to create a [Pulumi Project and a Stack](../docker_introduction_to_pulumi/lab-01/Creating_a_Pulumi_Project.md#step-2--initialize-your-project).
 1. How to add a [Pulumi package to a Project](../lab-02/Create_Docker_Images.md#step-2---build-your-docker-image-with-pulumi).
 1. How to [create an application image as a resource](../lab-02/Create_Docker_Images.md#step-2---build-your-docker-image-with-pulumi).
 1. How to [configure resources](../lab-03/Configuring_and_Provisioning_Containers.md#step-1---configure-the-application).
