@@ -182,3 +182,7 @@ Outputs:
 These exported values are incredibly useful when using Pulumi stacks
 
 Congratulations, you've now finished the introduction to Pulumi tutorial!
+
+# Summary
+
+* [Reviewing what we covered.](../Summary.md)
