@@ -27,6 +27,66 @@ CMD [ "npm", "start" ]
 
 This `Dockerfile` copies the REST backend into the Docker container, installs the dependencies, and builds the image. Note that port 3000 must be open.
 
+## Step 2 - Create a registry
+
+Before we create images for the application containers, we'll need a place to store them. Add the following to 
+
+```bash
+import pulumi_aws as aws
+
+# create a registry with policies
+repository = aws.ecr.Repository("myrepository")
+
+repository_policy = aws.ecr.RepositoryPolicy(
+    "myrepositorypolicy",
+    repository=repository.id,
+    policy=json.dumps({
+        "Version": "2012-10-17",
+        "Statement": [{
+            "Sid": "new policy",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:PutImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:DescribeRepositories",
+                "ecr:GetRepositoryPolicy",
+                "ecr:ListImages",
+                "ecr:DeleteRepository",
+                "ecr:BatchDeleteImage",
+                "ecr:SetRepositoryPolicy",
+                "ecr:DeleteRepositoryPolicy",
+            ]
+        }]
+    })
+)
+
+lifecycle_policy = aws.ecr.LifecyclePolicy(
+    "mylifecyclepolicy",
+    repository=repository.id,
+    policy=json.dumps({
+        "rules": [{
+            "rulePriority": 1,
+            "description": "Expire images older than 14 days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 14
+            },
+            "action": {
+                "type": "expire"
+            }
+        }]
+    })
+)
+```
+
 ## Step 2 - Build your Docker Image with Pulumi
 
 
