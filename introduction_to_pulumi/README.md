@@ -12,32 +12,31 @@ You will need the following to complete this tutorial.
 
 ## Tutorial
 
-The tutorial is divided into labs that guide you through the process of creating infrastructure with Pulumi, configuring it, and using Pulumi to push your infrastructure to production. The Docker tutorial let's you learn Pulumi on your computer without a cloud provider account. Cloud specific tutorials follow a similar process but are tailored to each individual cloud provider.
+The tutorial is divided into four sections that guide you through the process of creating infrastructure with Pulumi, configuring it, and using Pulumi to push your infrastructure to production.
 
-### Docker
+Docker is used in this tutorial to teach the basics of Pulumi without a cloud account. You will learn the following:
 
-Docker is used in this tutorial to let you learn the basics of Pulumi without an cloud account. You will learn the following:
+- [Create a Pulumi Project](./lab-01/Creating_a_Pulumi_Project.md),
+- [Build Docker Images](./lab-02/Create_Docker_Images.md),
+- [Configurig and Provisioning Containers](./lab-03/-Configuring_and_Provisioning_Containers.md),
+- [Exporting Outputs](./lab-04/Exporting_Outputs.md)
 
-- [Create a Pulumi Project](./docker_introduction_to_pulumi/lab-01/Creating_a_Pulumi_Project.md),
-- [Build Docker Images](./docker_introduction_to_pulumi/lab-02/Create_Docker_Images.md),
-- [Configurig and Provisioning Containers](./docker_introduction_to_pulumi/lab-03/-Configuring_and_Provisioning_Containers.md),
-- [Exporting Outputs](./docker_introduction_to_pulumi/lab-04/Exporting_Outputs.md)
+## Cloud Specific Tutorials
+
+Cloud specific tutorials use the same topics but tailored to each individual cloud provider.
 
 ### AWS
 
-The AWS tutorial covers Pulumi basics with AWS.
-
-- [Create a Pulumi Project](./aws_introduction_to_pulumi/lab-01/Creating_a_Pulumi_Project.md),
-- [Build Docker Images and Registry](./aws_introduction_to_pulumi/lab-02/Create_Docker_Images.md),
-- [Creating AWS IAM Policies](./aws_introduction_to_pulumi/lab-03/Create_IAM_Policies.md),
-- [Configurig and Provisioning Containers](./aws_introduction_to_pulumi/lab-04/-Configuring_and_Provisioning_Containers.md),
-- [Creating a Fargate Service](./aws_introduction_to_pulumi/lab-05/Creating_a_Fargate_Service.md),
-- [Exporting Outputs](./aws_introduction_to_pulumi/lab-06/Exporting_Outputs.md)
+TBD
 
 ### Azure
 
 TBD
 
 ### Google Cloud
+
+TBD
+
+### Kubernetes
 
 TBD
