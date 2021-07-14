@@ -147,6 +147,8 @@ mongo_image = docker.RemoteImage("mongo",",
                         name="mongo:bionic"))
 ```
 
+Run `pulumi up` to build and push images to your AWS registry.
+
 ## Next Steps
 
 * [Configuring and Provisioning Containers](../lab-03/Configuring_and_Provisioning_Containers.md)
