@@ -29,68 +29,35 @@ This `Dockerfile` copies the REST backend into the Docker container, installs th
 
 ## Step 2 - Create a registry
 
-Before we create images for the application containers, we'll need a place to store them. Add the following to 
+Before we create images for the application containers, we'll need a place to store them. We'll create a private AWS ECR repository Add the following to `__main__.py`.
 
 ```bash
 import pulumi_aws as aws
 
-# create a registry with policies
-repository = aws.ecr.Repository("myrepository")
+# Create a private ECR repository.
+repo = aws.ecr.Repository('my_repo')
+```
 
-repository_policy = aws.ecr.RepositoryPolicy(
-    "myrepositorypolicy",
-    repository=repository.id,
-    policy=json.dumps({
-        "Version": "2012-10-17",
-        "Statement": [{
-            "Sid": "new policy",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:PutImage",
-                "ecr:InitiateLayerUpload",
-                "ecr:UploadLayerPart",
-                "ecr:CompleteLayerUpload",
-                "ecr:DescribeRepositories",
-                "ecr:GetRepositoryPolicy",
-                "ecr:ListImages",
-                "ecr:DeleteRepository",
-                "ecr:BatchDeleteImage",
-                "ecr:SetRepositoryPolicy",
-                "ecr:DeleteRepositoryPolicy",
-            ]
-        }]
-    })
-)
+Because it's a private repository we will need to add a function to authenticate. This function generates a temporary access credential.
 
-lifecycle_policy = aws.ecr.LifecyclePolicy(
-    "mylifecyclepolicy",
-    repository=repository.id,
-    policy=json.dumps({
-        "rules": [{
-            "rulePriority": 1,
-            "description": "Expire images older than 14 days",
-            "selection": {
-                "tagStatus": "untagged",
-                "countType": "sinceImagePushed",
-                "countUnit": "days",
-                "countNumber": 14
-            },
-            "action": {
-                "type": "expire"
-            }
-        }]
-    })
-)
+```python
+# Get registry info (creds and endpoint).
+def getRegistryInfo(rid):
+    creds = aws.ecr.get_credentials(registry_id=rid)
+    decoded = base64.b64decode(creds.authorization_token).decode()
+    parts = decoded.split(':')
+    if len(parts) != 2:
+        raise Exception("Invalid credentials")
+    return docker.ImageRegistry(creds.proxy_endpoint, parts[0], parts[1])
+
+image_name = repo.repository_url
+registry_info = repo.registry_id.apply(getRegistryInfo)
 ```
 
 ## Step 2 - Build your Docker Image with Pulumi
 
 
-Before we start, make sure you install the `pulumi_docker` provider from pip inside your virtualenv:
+Before yo can build an image or run a container, make sure you installed the `pulumi_docker` provider from pip inside your virtualenv:
 
 ```bash
 source venv/bin/activate
@@ -104,9 +71,10 @@ m, let's build your first Docker image. Inside your program's `__main__.py` add 
 
 
 ```python
-import pulumi
-install pulumi_docker as docker
+# [Existing imports]
+import pulumi_docker as docker
 
+# Get the stack name
 stack = pulumi.get_stack()
 
 # build our backend image!
@@ -114,17 +82,17 @@ backend_image_name = "backend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/backend"),
                         image_name=f"{backend_image_name}:{stack}",
-                        skip_push=True
+                        registry=registry_info
 )
 ```
-Run `pulumi up` and it should build your docker image If you run `docker images` you should see your image.
+Run `pulumi up` to build your docker image If you run `aws ecr list-images --repository-name my_repo` you should see your image.
 
 Let's review what's going on in the code. The Docker [Image](https://www.pulumi.com/docs/reference/pkg/docker/image/) resource takes the following for inputs"
 
 - name: a name for the Resource we are creating
 - build: the Docker build context, i.e., the path to the app
 - image_name: this is the qualified image name which can include a tag
-- skip_push: flag to push to a registry
+- registry: push to ECR registry
 
 Now that we've provisioned our first piece of infrastructure, let's add the other pieces of our application.
 
@@ -137,8 +105,8 @@ Our application includes a frontend client and MongoDB. We'll add them to the pr
 backend_image_name = "frontend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",,
-                        skip_push=True
+                        image_name=f"{backend_image_name}:{stack}",
+                        registry=registry_info
 )
 ```
 
@@ -163,7 +131,7 @@ backend_image_name = "backend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/backend"),
                         image_name=f"{backend_image_name}:{stack}",
-                        skip_push=True
+                        registry=registry_info
 )
 
 # build our frontend image!
@@ -171,7 +139,7 @@ frontend_image_name = "frontend"
 frontend = docker.Image("frontend",
                         build=docker.DockerBuild(context="../app/frontend"),
                         image_name=f"{frontend_image_name}:{stack}",
-                        skip_push=True
+                        registry=registry_info
 )
 
 # build our mongodb image!

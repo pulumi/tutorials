@@ -45,7 +45,7 @@ m, let's build your first Docker image. Inside your program's `__main__.py` add 
 
 ```python
 import pulumi
-install pulumi_docker as docker
+import pulumi_docker as docker
 
 stack = pulumi.get_stack()
 
@@ -77,7 +77,7 @@ Our application includes a frontend client and MongoDB. We'll add them to the pr
 backend_image_name = "frontend"
 backend = docker.Image("backend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",,
+                        image_name=f"{backend_image_name}:{stack}",
                         skip_push=True
 )
 ```
