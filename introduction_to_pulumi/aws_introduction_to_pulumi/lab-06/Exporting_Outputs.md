@@ -1,4 +1,4 @@
-# Lab 04 - Outputs & Stack References
+# Lab 06 - Outputs & Stack References
 
 We've created some resources, now let's see how we can use outputs outside of Pulumi
 
