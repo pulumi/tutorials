@@ -1,8 +1,34 @@
-## Lab-03 Configuring and Provisioning Containers
+## Lab-04 Configuring and Provisioning Containers on Fargate
 
-Now that we've created our images, we can provision our application with a network and containers.
+AWS Fargate is a service that lets you run containers without having to manage servers or clusters of EC2 instances. We'll use Fargate to deploy the containers for our application.
 
-## Step 1 - Configure the application
+Now that we've created our images, we can setup the Fargate service.
+
+## Step 2 - Creating Fargate Tasks and Services
+
+To run containers in AWS we need to create a task definition. The task definition specifie which image to use for a container, the CPU and memory assigned to a task, the Docker networking mode, the launch type tp use, and more parameters. To keep this example simple, we will define the entire application stack in a single stack. Keep in mind that an application can use multiple tasks definitions.
+
+```python
+task_definition = aws.ecs.TaskDefinition('app-task',
+    family='fargate-task-definition',
+    cpu='256',
+    memory='512',
+    network_mode='awsvpc',
+    requires_compatibilities=['FARGATE'],
+    execution_role_arn=role.arn,
+    container_definitions=json.dumps([{
+		'name': frontend',
+		'image': '',
+		'portMappings': [{
+			'containerPort': 80,
+			'hostPort': 80,
+			'protocol': 'tcp'
+		}]
+	}])
+)
+```
+
+## Step 3 - Configure the application
 
 Add the following configuration variables to your Pulumi program below the imports:
 
