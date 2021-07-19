@@ -34,7 +34,7 @@ backend = docker.Image("backend",
 
 # build our frontend image!
 frontend_image_name = "frontend"
-frontend = docker.Image("frontkend",
+frontend = docker.Image("frontend",
                         build=docker.DockerBuild(context="../app/frontend"),
                         image_name=f"{frontend_image_name}:{stack}",
                         skip_push=True

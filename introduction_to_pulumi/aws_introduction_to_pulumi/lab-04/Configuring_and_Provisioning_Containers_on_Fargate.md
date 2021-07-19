@@ -4,31 +4,7 @@ AWS Fargate is a service that lets you run containers without having to manage s
 
 Now that we've created our images, we can setup the Fargate service.
 
-## Step 2 - Creating Fargate Tasks and Services
-
-To run containers in AWS we need to create a task definition. The task definition specifie which image to use for a container, the CPU and memory assigned to a task, the Docker networking mode, the launch type tp use, and more parameters. To keep this example simple, we will define the entire application stack in a single stack. Keep in mind that an application can use multiple tasks definitions.
-
-```python
-task_definition = aws.ecs.TaskDefinition('app-task',
-    family='fargate-task-definition',
-    cpu='256',
-    memory='512',
-    network_mode='awsvpc',
-    requires_compatibilities=['FARGATE'],
-    execution_role_arn=role.arn,
-    container_definitions=json.dumps([{
-		'name': frontend',
-		'image': '',
-		'portMappings': [{
-			'containerPort': 80,
-			'hostPort': 80,
-			'protocol': 'tcp'
-		}]
-	}])
-)
-```
-
-## Step 3 - Configure the application
+## Step 1 - Configure the application
 
 Add the following configuration variables to your Pulumi program below the imports:
 
@@ -60,7 +36,7 @@ backend = docker.Image("backend",
 
 # build our frontend image!
 frontend_image_name = "frontend"
-frontend = docker.Image("frontkend",
+frontend = docker.Image("frontend",
                         build=docker.DockerBuild(context="../app/frontend"),
                         image_name=f"{frontend_image_name}:{stack}",
                         skip_push=True
@@ -93,6 +69,93 @@ pulumi config set mongo_port 27017
 Now, try and rerun your Pulumi program.
 
 Your Pulumi program should now run, but you're not actually using this newly configured ports, yet!
+
+## Step 2 - Creating Fargate Tasks and Services
+
+To run containers in AWS we need to create a task definition. The task definition specifie which image to use for a container, the CPU and memory assigned to a task, the Docker networking mode, the launch type tp use, and more parameters. To keep this example simple, we will define the entire application stack in a single stack. Keep in mind that an application can use multiple tasks definitions.
+
+```python
+task_definition = aws.ecs.TaskDefinition('app-task',
+    family='fargate-task-definition',
+    cpu='256',
+    memory='512',
+    network_mode='awsvpc',
+    requires_compatibilities=['FARGATE'],
+    execution_role_arn=role.arn,
+    container_definitions=json.dumps([{
+		'name': frontend',
+		'image': '',
+		'portMappings': [{
+			'containerPort': 80,
+			'hostPort': 80,
+			'protocol': 'tcp'
+		}]
+	},
+    {
+
+      "name": "app",
+      "image": "application_image",
+      "portMappings": [
+        {
+          "containerPort": 9080,
+          "hostPort": 9080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "dependsOn": [
+        {
+          "containerName": "envoy",
+          "condition": "HEALTHY"
+        }
+      ]
+    },
+    {
+
+      "name": "app",
+      "image": "application_image",
+      "portMappings": [
+        {
+          "containerPort": 9080,
+          "hostPort": 9080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "dependsOn": [
+        {
+          "containerName": "envoy",
+          "condition": "HEALTHY"
+        }
+      ]
+    }
+    ])
+)
+```
+
+An Amazon ECS service allows you to run and maintain a specified number of instances of a task definition simultaneously in an Amazon ECS cluster. If any of your tasks should fail or stop for any reason, the Amazon ECS service scheduler launches another instance of your task definition to replace it in order to maintain the desired number of tasks in the service.
+
+In addition to maintaining the desired number of tasks in your service, you can optionally run your service behind a load balancer. The load balancer distributes traffic across the tasks that are associated with the service.
+
+```python
+service = aws.ecs.Service('app-svc',
+	cluster=cluster.arn,
+    desired_count=3,
+    launch_type='FARGATE',
+    task_definition=task_definition.arn,
+    network_configuration=aws.ecs.ServiceNetworkConfigurationArgs(
+		assign_public_ip=True,
+		subnets=default_vpc_subnets.ids,
+		security_groups=[group.id],
+	),
+    load_balancers=[aws.ecs.ServiceLoadBalancerArgs(
+		target_group_arn=atg.arn,
+		container_name='my-app',
+		container_port=80,
+	)],
+    opts=ResourceOptions(depends_on=[wl]),
+)
+```
 
 ## Step 2 - Create a Container resource
 
