@@ -6,7 +6,7 @@ These hands-on tutorials show how to use Pulumi to build, deploy, and manage clo
 
 - [**Introduction to Pulumi**](./introduction_to_pulumi): This module introduces the key concepts of state, using familiar programming languages and tools, and deploying and configuring resources. You will learn how Pulumi uses imperative languages in a declarative model through the use of inputs and outputs in the asynchronous environment of the cloud.
 
-- **Pulumi in Practice**: You will learn how to user Pulumi in a real-world workflow with this module. 
+- **Pulumi in Practice**: You will learn how to user Pulumi in a real-world workflow with this module.
 
 - **Pulumi in Operation**: This module shows how to manage and operate Pulumi in their organization and team.
 
