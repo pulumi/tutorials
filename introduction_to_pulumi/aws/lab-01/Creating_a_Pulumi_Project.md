@@ -18,7 +18,23 @@ cd my-first-app
 A Pulumi Project is just a directory with some files in it. It's possible for you to create a new one by hand. The `pulumi new` command, however, automates the process:
 
 ```bash
-pulumi new python -y
+$ pulumi new aws-python -y
+This command will walk you through creating a new Pulumi project.
+
+Enter a value or leave blank to accept the (default), and press <ENTER>.
+Press ^C at any time to quit.
+
+project name: (my-first-app)
+project description: (A minimal AWS Python Pulumi program)
+Created project 'my-first-app'
+
+Please enter your desired stack name.
+To create a stack in an organization, use the format <org-name>/<stack-name> (e.g. `acmecorp/dev`).
+stack name: (dev)
+Created stack 'dev'
+
+aws:region: The AWS region to deploy into: (us-east-1) us-west-2
+Saved config
 ```
 
 This prints output similar to the following with a bit more information and status as it goes:
