@@ -74,10 +74,10 @@ Our application includes a frontend client and MongoDB. We'll add them to the pr
 
 ```python
 # build our frontend image!
-backend_image_name = "frontend"
-backend = docker.Image("backend",
+frontend_image_name = "frontend"
+frontend = docker.Image("frontend",
                         build=docker.DockerBuild(context="../app/frontend"),
-                        image_name=f"{backend_image_name}:{stack}",
+                        image_name=f"{frontend_image_name}:{stack}",
                         skip_push=True
 )
 ```
