@@ -108,7 +108,7 @@ It is important to note something here. In the Container resource, we are refere
 The backend container also requires environment variables to connect to the mongo container and set the node environment for Express.js. These are set in `./app/backend/src/.env`. Like before we can set them using `pulumi config`.
 
 ```bash
-pulumi config set mongo_host mongodb:http://mongo:27017
+pulumi config set mongo_host mongodb://mongo:27017
 pulumi config set database cart
 pulumi config set node_environment development
 ```
