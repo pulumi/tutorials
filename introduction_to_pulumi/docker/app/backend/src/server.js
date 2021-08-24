@@ -8,7 +8,7 @@ process.on('uncaughtException', (err) => {
 });
 
 mongoose
-  .connect(process.env.DATABASE_HOST + process.env.DATABASE_NAME, {
+  .connect(process.env.DATABASE_HOST + "/" + process.env.DATABASE_NAME, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
