@@ -212,20 +212,47 @@ Run `pulumi up` and our application is running. However, the store is empty and 
 
 ## Step 4 - Populate the database
 
-We'll use Docker to populate mongodb. First, we will copy the data to the mongodb container, then open a shell in the container and import the data.
+Now we can populate MongoDB and set up our Pulumi file to autopopulate the next time we deploy. First, copy the `products.json` file into the same directory as your `__main__.py` file.
 
-```bash
-docker cp ../app/data/products.json mongo:/tmp/products.json
-docker exec -it mongo sh
+Then, we'll mount the file to an ephemeral seed container, and then use `mongoimport` to transfer that data into the database. Add the following lines of code to your Pulumi file, then run `pulumi up`.
+
+At the top of your file, add `import os`. Then, add this snippet after the `mongo_container` declaration:
+
+```python
+data_seed_container = docker.Container("data_seed_container",
+                                       image=mongo_image.latest,
+                                       name="data_seed",
+                                       opts=pulumi.ResourceOptions(depends_on=[mongo_container]),
+                                       mounts=[docker.ContainerMountArgs(
+                                           target="/home/products.json",
+                                           type="bind",
+                                           source=f"{os.getcwd()}/products.json"
+                                       )],
+                                       command=[
+                                           "mongoimport",
+                                           "--host",
+                                           "mongo",
+                                           "--db",
+                                           "cart",
+                                           "--collection",
+                                           "products",
+                                           "--type",
+                                           "json",
+                                           "--file",
+                                           "/home/products.json",
+                                           "--jsonArray"
+                                       ],
+                                       networks_advanced=[docker.ContainerNetworksAdvancedArgs(
+                                           name=network.name
+                                       )]
+                                       )
 ```
 
-This opens a shell in the mongo container and we can use `mongoimport` to load the data into the database.
+Note the `mounts` part, which allows you to use a `bind mount` storage type to add the necessary file. If you're not familiar with mounts compared to volumes in Docker, see [the docs on bind mounts](https://docs.docker.com/storage/bind-mounts/). In this case, we're using a bind mount over a volume for simplicity.
 
-```sh
-mongoimport -d cart -c products --file /tmp/products.json --jsonArray
-```
+Once you've added this snippet, run `pulumi up` to refresh the data in the database.
 
-Open a browser to `http://localhost:3001` and our application is now deployed.
+Open a browser to `http://localhost:3001`, and our application is now deployed.
 
 # Next Steps
 
