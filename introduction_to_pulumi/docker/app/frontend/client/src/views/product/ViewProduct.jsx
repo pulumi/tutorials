@@ -141,7 +141,7 @@ const ViewProduct = () => {
     new Noty({
       layout: 'bottomCenter',
       progressBar: false,
-      text: `<div style="display:flex; align-items: center;gap:15px;"><img width="40" src=${product.images[0].src} alt='sneaker' /> <div>Added to cart</div></div>`,
+      text: `<div style="display:flex; align-items: center;gap:15px;"><img width="40" src=${product.images[0].src} alt='tea' /> <div>Added to cart</div></div>`,
       theme: 'relax',
       timeout: 1000
     }).show();
