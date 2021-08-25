@@ -33,19 +33,19 @@ const CartProduct = ({ cartItem }) => {
     let cust = '';
     switch (code) {
       case 1:
-        cust = "Everyone's";
+        cust = "Tasty";
         break;
       case 2:
-        cust = "Men's";
+        cust = "Yummy";
         break;
       case 3:
-        cust = "Women's";
+        cust = "Delightful";
         break;
       case 5:
-        cust = "Kids's";
+        cust = "Scrumptious";
         break;
       default:
-        cust = 'Unisex';
+        cust = "Delicious";
         break;
     }
     return cust;

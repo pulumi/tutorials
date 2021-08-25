@@ -151,16 +151,16 @@ const ViewProduct = () => {
     let cust = '';
     switch (code) {
       case 2:
-        cust = 'Men';
+        cust = 'Milk Tea';
         break;
       case 3:
-        cust = 'Women';
+        cust = 'Other1';
         break;
       case 4:
-        cust = 'Unisex';
+        cust = 'Chill';
         break;
       case 5:
-        cust = 'Kids';
+        cust = 'Other2';
         break;
       default:
         cust = 'All';
