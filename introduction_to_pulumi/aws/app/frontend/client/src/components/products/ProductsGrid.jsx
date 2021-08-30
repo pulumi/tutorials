@@ -142,7 +142,7 @@ const ProductsGrid = ({ customer }) => {
         klass = 'men_items';
         break;
       case 3:
-        klass = 'women_items';
+        klass = 'tea_items1';
         break;
       case 4:
         klass = 'unisex_items';

@@ -1,21 +1,22 @@
 {
-  "name": "shopping-cart",
+  "name": "pulumipus-boba-tea-shop",
   "version": "0.0.1",
-  "description": "react shopping cart",
+  "description": "Pulumipus Boba Tea Shop Demo App",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
     "client": "cd client && npm start",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "dev:server": "cd client && yarn build && cd .. && yarn start",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "dev:server": "cd client && yarn build && cd .. && yarn start"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shubhambattoo/shopping-cart.git"
+    "url": "git+https://github.com/pulumi/tutorials.git"
   },
   "keywords": [
+    "pulumi",
+    "demo",
     "react",
     "javsacript",
     "nodejs",
@@ -25,16 +26,16 @@
     "hooks-api-react",
     "context-api",
     "usereducer",
-    "sneakers",
+    "tea",
     "create-react-app",
     "mern-stack"
   ],
-  "author": "shubhambattoo",
+  "author": "Pulumi (forked from shubhambattoo)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/shubhambattoo/shopping-cart/issues"
+    "url": "https://github.com/pulumi/tutorials/issues"
   },
-  "homepage": "https://github.com/shubhambattoo/shopping-cart#readme",
+  "homepage": "https://learn.pulumi.com",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

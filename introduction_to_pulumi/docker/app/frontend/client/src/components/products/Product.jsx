@@ -7,7 +7,7 @@ export const Product = ({ product }) => {
   const history = useHistory();
   const [colors] = useState(() =>
     product.images
-      .map((img) => ({ name: img.color, code: img.hex }))
+      // .map((img) => ({ name: img.color, code: img.hex }))
       .filter((v, i, a) => a.findIndex((t) => t.name === v.name) === i)
   );
 
@@ -24,16 +24,16 @@ export const Product = ({ product }) => {
         klass += '';
         break;
       case 2:
-        klass += ' men_item';
+        klass += ' tea_item2';
         break;
       case 3:
-        klass += ' women_item';
+        klass += ' tea_item1';
         break;
       case 4:
-        klass += ' unisex_item';
+        klass += ' tea_item4';
         break;
       case 5:
-        klass += ' kid_item';
+        klass += ' tea_item3';
         break;
       default:
         klass = '';

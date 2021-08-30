@@ -1,39 +1,19 @@
 import React, { useState } from 'react';
 import style from './header.module.css';
 
-const FootwareMenus = () => {
-  const footwareTypes = [
+const TeaMenus = () => {
+  const teaTypes = [
     {
       id: 1,
       title: 'Boba Tea',
       active: false,
     },
-    // {
-    //   id: 2,
-    //   title: 'Latte',
-    //   active: true,
-    // },
-    // {
-    //   id: 3,
-    //   title: 'Chills',
-    //   active: false,
-    // },
-    // {
-    //   id: 4,
-    //   title: 'Chelsea Boots',
-    //   active: false,
-    // },
-    // {
-    //   id: 5,
-    //   title: 'Slides',
-    //   active: false,
-    // },
   ];
 
   return (
     <div className={style.store_menu_wrapper}>
       <div className={style.store_menu}>
-        {footwareTypes.map((type) => (
+        {teaTypes.map((type) => (
           <div key={type.id} className={style.store_menu_item}>
             <h2
               className={`${style.store_menu_title} ${
@@ -50,12 +30,12 @@ const FootwareMenus = () => {
   );
 };
 
-const TabsController = ({ customerTypeChange }) => {
+const TabsController = ({ customerTypeChange: teaTypeChange }) => {
   const [active, setActive] = useState(1);
 
-  const changeCustType = (e) => {
+  const changeTeaType = (e) => {
     setActive(e);
-    customerTypeChange(e);
+    teaTypeChange(e);
   };
 
   return (
@@ -64,34 +44,28 @@ const TabsController = ({ customerTypeChange }) => {
         <ul className={style.tab_menus}>
           <li
             className={active === 1 ? style.active_tab : ''}
-            onClick={() => changeCustType(1)}
+            onClick={() => changeTeaType(1)}
           >
             All
           </li>
           <li
             className={active === 2 ? style.active_tab : ''}
-            onClick={() => changeCustType(2)}
+            onClick={() => changeTeaType(2)}
           >
             Boba
           </li>
           <li
             className={active === 3 ? style.active_tab : ''}
-            onClick={() => changeCustType(3)}
+            onClick={() => changeTeaType(3)}
           >
             Latte
           </li>
           <li
             className={active === 4 ? style.active_tab : ''}
-            onClick={() => changeCustType(4)}
+            onClick={() => changeTeaType(4)}
           >
             Chills
           </li>
-          {/* <li
-            className={active === 5 ? style.active_tab : ''}
-            onClick={() => changeCustType(5)}
-          >
-            Kids
-          </li> */}
         </ul>
       </div>
     </div>
@@ -101,7 +75,7 @@ const TabsController = ({ customerTypeChange }) => {
 const StoreHeader = ({ customer, customerChange }) => {
   return (
     <>
-      <FootwareMenus />
+      <TeaMenus />
       <TabsController
         customerType={customer}
         customerTypeChange={customerChange}
