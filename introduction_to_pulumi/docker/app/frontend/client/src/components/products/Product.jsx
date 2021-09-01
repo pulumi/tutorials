@@ -5,11 +5,6 @@ import style from '../products/products.module.css';
 
 export const Product = ({ product }) => {
   const history = useHistory();
-  const [colors] = useState(() =>
-    product.images
-      // .map((img) => ({ name: img.color, code: img.hex }))
-      .filter((v, i, a) => a.findIndex((t) => t.name === v.name) === i)
-  );
 
   function showProductDetails(id) {
     history.push(
@@ -73,20 +68,6 @@ export const Product = ({ product }) => {
             {' '}
             {product.currency.format} {product.price.toFixed(2)}
           </p>
-        </div>
-        <div className={style.card_meta}>
-          <div className={style.card_colors}>
-            {colors.map((c, i) => (
-              <span
-                key={i}
-                title={c.name}
-                style={{
-                  backgroundColor: c.code,
-                  border: `1px solid ${c.name === 'White' ? '#ccc' : c.code}`,
-                }}
-              ></span>
-            ))}
-          </div>
         </div>
       </div>
     </div>

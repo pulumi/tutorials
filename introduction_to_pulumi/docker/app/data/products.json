@@ -7,7 +7,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/classic_milk_tea.png",
+      "src": "/images/classic_boba.png",
       "color": "",
       "hex": ""
     }
@@ -40,7 +40,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/ginger_milk_tea.png",
+      "src": "/images/ginger_boba.png",
       "color": "",
       "hex": ""
     }
@@ -73,7 +73,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/taro_milk_tea.png",
+      "src": "/images/taro_boba.png",
       "color": "White",
       "hex": "#FAFAFA"
     }
@@ -106,7 +106,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/thai_milk_tea.png",
+      "src": "/images/thai_boba.png",
       "color": "Pink",
       "hex": "#E53F90"
     }
@@ -255,7 +255,7 @@
   ],
   "name": "Pulumipus Chill",
   "price": 6.00,
-  "description": "Our special mix of mango, pineapple, kiwi, and more. A deliciously cold drink from you favorite platypus.",
+  "description": "Our special mix of mango, pineapple, kiwi, and more. A deliciously cold drink from your favorite platypus.",
   "productCode": "CK7513-003",
   "ratings": {
     "total": 182,
