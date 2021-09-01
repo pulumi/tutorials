@@ -109,3 +109,6 @@ dist
 
 #test dir
 boba_shop/
+
+#React build dir
+*/app/frontend/client/build/
