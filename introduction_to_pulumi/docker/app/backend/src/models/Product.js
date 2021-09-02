@@ -39,9 +39,9 @@ const productSchema = new mongoose.Schema({
     default: 'tea',
     required: [true, 'product category is required'],
   },
-  teaType: { //TODO: Fix comment to use proper tea type once that's established.
+  teaType: {
     type: Number,
-    default: 1, // 1:All 2:Men 3:Women 4:Unisex 5:Kid
+    default: 1, // 1:All 2:Boba 3:Latte 4:Chills
   },
   status: {
     type: Number,
