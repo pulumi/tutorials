@@ -4,6 +4,14 @@ import { useContext } from 'react';
 import { CartContext } from '../../context/cartContext';
 import style from '../../views/cart/cart.module.css';
 
+function importAllImages(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('../../', '')] = r(item); });
+  return images;
+}
+
+const images = importAllImages(require.context('../../img', false, /\.png$/));
+
 const CartProduct = ({ cartItem }) => {
   const { removeProduct, qtyUpdate } = useContext(CartContext);
   const [qty, setQty] = useState(0);
@@ -61,7 +69,7 @@ const CartProduct = ({ cartItem }) => {
         </div>
         <div className={style.item_image}>
           <img
-            src={cartItem.product.images[0].src}
+            src={cartItem.product.images[0].src ? images[`./${cartItem.product.images[0].src}`].default : ""}
             alt={cartItem.product.name}
           />
         </div>

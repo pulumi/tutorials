@@ -3,6 +3,16 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import style from '../products/products.module.css';
 
+function importAllImages(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('../../', '')] = r(item); });
+  return images;
+}
+
+const images = importAllImages(require.context('../../img', false, /\.png$/));
+
+console.log(images['./classic_boba.png'].default)
+
 export const Product = ({ product }) => {
   const history = useHistory();
 
@@ -44,7 +54,7 @@ export const Product = ({ product }) => {
       onClick={() => showProductDetails(product)}
     >
       <div className={style.card_image}>
-        <img src={product.images[0].src} alt={product.name} />
+        <img src={product.images[0].src ? images[`./${product.images[0].src}`].default : ""} alt={product.name} />
       </div>
       <div className={style.card_status}>
         {product.status === 0 && (

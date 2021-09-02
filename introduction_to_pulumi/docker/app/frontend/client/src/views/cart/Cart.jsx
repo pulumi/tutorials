@@ -14,7 +14,7 @@ const Cart = () => {
   }, []);
 
   function handleCheckOut() {
-    alert('Checkout - Subtotal : ₹ ' + totalCost);
+    alert('Checkout - Subtotal : $ ' + totalCost);
   }
 
   return (

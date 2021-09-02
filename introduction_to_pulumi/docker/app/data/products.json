@@ -7,9 +7,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/classic_boba.png",
-      "color": "",
-      "hex": ""
+      "src": "classic_boba.png",
     }
   ],
   "created": 1600979464563,
@@ -40,9 +38,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/ginger_boba.png",
-      "color": "",
-      "hex": ""
+      "src": "ginger_boba.png",
     }
   ],
   "created": 1600981421087,
@@ -73,9 +69,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/taro_boba.png",
-      "color": "White",
-      "hex": "#FAFAFA"
+      "src": "taro_boba.png",
     }
   ],
   "created": 1601008415022,
@@ -106,9 +100,7 @@
   "category": "boba",
   "images": [
     {
-      "src": "/images/thai_boba.png",
-      "color": "Pink",
-      "hex": "#E53F90"
+      "src": "thai_boba.png",
     }
   ],
   "created": 1601008816970,
@@ -139,9 +131,7 @@
   "category": "chill",
   "images": [
     {
-      "src": "/images/mango_chill.png",
-      "color": "",
-      "hex": ""
+      "src": "mango_chill.png",
     }
   ],
   "created": 1601009129502,
@@ -172,9 +162,7 @@
   "category": "latte",
   "images": [
     {
-      "src": "/images/matcha_latte.png",
-      "color": "",
-      "hex": ""
+      "src": "matcha_latte.png",
     }
   ],
   "created": 1601009129502,
@@ -205,9 +193,7 @@
   "category": "chill",
   "images": [
     {
-      "src": "/images/matcha_chill.png",
-      "color": "Black",
-      "hex": "#1C1B1D"
+      "src": "matcha_chill.png",
     }
   ],
   "created": 1601047285438,
@@ -238,9 +224,7 @@
   "category": "chill",
   "images": [
     {
-      "src": "/images/pulumipus_chill.png",
-      "color": "",
-      "hex": ""
+      "src": "pulumipus_chill.png",
     }
   ],
   "created": 1601047571500,
@@ -271,9 +255,7 @@
   "category": "chill",
   "images": [
     {
-      "src": "/images/strawberry_chill.png",
-      "color": "",
-      "hex": ""
+      "src": "strawberry_chill.png",
     }
   ],
   "created": 1601047852170,
@@ -304,9 +286,7 @@
   "category": "chill",
   "images": [
     {
-      "src": "/images/taro_chill.png",
-      "color": "",
-      "hex": ""
+      "src": "taro_chill.png",
     }
   ],
   "created": 1601048173895,
