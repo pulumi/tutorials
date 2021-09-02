@@ -74,7 +74,7 @@ const CarouselFullScreen = ({product}) => {
             {product.images.map((img, i) => (
                 <div className={style.preview_large} key={i}>
                     <div className={style.cover_large}>
-                        <img src={require(img.src) ? images[`./${img.src}`].default : ""} alt={product.name}/>
+                        <img src={img.src ? images[`./${img.src}`].default : ""} alt={product.name}/>
                     </div>
                 </div>
             ))}
@@ -143,7 +143,7 @@ const ViewProduct = () => {
         new Noty({
             layout: 'bottomCenter',
             progressBar: false,
-            text: `<div style="display:flex; align-items: center;gap:15px;"><img width="40" src=${product.images.src ? images[`./${product.images.src}`].default : ""} alt='tea' /> <div>Added to cart</div></div>`,
+            text: `<div style="display:flex; align-items: center;gap:15px;"><img width="40" src=${product.images[0].src ? images[`./${product.images[0].src}`].default : ""} alt='tea' /> <div>Added to cart</div></div>`,
             theme: 'relax',
             timeout: 1000
         }).show();
@@ -153,16 +153,13 @@ const ViewProduct = () => {
         let cust = '';
         switch (code) {
             case 2:
-                cust = 'Milk Tea';
+                cust = 'Boba';
                 break;
             case 3:
-                cust = 'Other1';
+                cust = 'Latte';
                 break;
             case 4:
-                cust = 'Chill';
-                break;
-            case 5:
-                cust = 'Other2';
+                cust = 'Chills';
                 break;
             default:
                 cust = 'All';
@@ -216,7 +213,7 @@ const ViewProduct = () => {
                                     </li>
                                     <li>Products</li>
                                     <li>{product.category}</li>
-                                    <li>{getCustomerType(product.customerType)}</li>
+                                    <li>{getCustomerType(product.teaType)}</li>
                                 </ul>
                                 <span className={style.details_id}>
                   Id: {product.productCode}

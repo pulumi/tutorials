@@ -139,16 +139,13 @@ const ProductsGrid = ({customer}) => {
                 klass = 'all_items';
                 break;
             case 2:
-                klass = 'men_items';
+                klass = 'boba_items';
                 break;
             case 3:
-                klass = 'tea_items1';
+                klass = 'latte_items';
                 break;
             case 4:
-                klass = 'unisex_items';
-                break;
-            case 5:
-                klass = 'kid_items';
+                klass = 'chills_items';
                 break;
             default:
                 klass = 'all_items';

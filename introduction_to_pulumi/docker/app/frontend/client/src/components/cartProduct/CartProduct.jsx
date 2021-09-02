@@ -76,7 +76,7 @@ const CartProduct = ({ cartItem }) => {
         <div className={style.item_details}>
           <h3>{cartItem.product.name}</h3>
           <div className={style.item_meta}>
-            {getCustomerType(cartItem.product.customerType)}{' '}
+            {getCustomerType(cartItem.product.teaType)}{' '}
             {cartItem.product.category}
           </div>
         </div>

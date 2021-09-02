@@ -77,34 +77,34 @@ ul.react-multi-carousel-track li {
 }
 
 /* Grid items filtering  via css classes */
-.tea_items1 .prod:not(.tea_item1) {
+.all_items .prod:not(.all_item) {
   display: none !important;
 }
 
-.tea_items1 .prod.tea_item1 {
+.all_items .prod.all_item {
   display: block !important;
 }
 
-.tea_items2 .prod:not(.tea_item2) {
+.boba_items .prod:not(.boba_item) {
   display: none !important;
 }
 
-.tea_items2 .prod.tea_item2 {
+.boba_items .prod.boba_item {
   display: block !important;
 }
 
-.tea_items3 .prod:not(.tea_item3) {
+.latte_items .prod:not(.latte_item) {
   display: none !important;
 }
 
-.tea_items3 .prod.tea_item3 {
+.latte_items .prod.latte_item {
   display: block !important;
 }
 
-.tea_items4 .prod:not(.tea_item4) {
+.chills_items .prod:not(.chills_item) {
   display: none !important;
 }
 
-.tea_items4 .prod.tea_item4 {
+.chills_items .prod.chills_item {
   display: block !important;
 }

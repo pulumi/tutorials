@@ -23,22 +23,19 @@ export const Product = ({ product }) => {
   }
 
   function getItemKlass(custId) {
-    let klass = 'prod';
+    let klass = 'prod all_item';
     switch (custId) {
       case 1:
         klass += '';
         break;
       case 2:
-        klass += ' tea_item2';
+        klass += ' boba_item';
         break;
       case 3:
-        klass += ' tea_item1';
+        klass += ' latte_item';
         break;
       case 4:
-        klass += ' tea_item4';
-        break;
-      case 5:
-        klass += ' tea_item3';
+        klass += ' chills_item';
         break;
       default:
         klass = '';
@@ -50,7 +47,7 @@ export const Product = ({ product }) => {
   return (
     <div
       key={product._id}
-      className={`${style.product_card} ${getItemKlass(product.customerType)}`}
+      className={`${style.product_card} ${getItemKlass(product.teaType)}`}
       onClick={() => showProductDetails(product)}
     >
       <div className={style.card_image}>
