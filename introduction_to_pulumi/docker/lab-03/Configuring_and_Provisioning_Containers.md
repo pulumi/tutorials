@@ -24,6 +24,8 @@ frontend_port = config.require_int("frontend_port")
 backend_port = config.require_int("backend_port")
 mongo_port = config.require_int("mongo_port")
 
+stack = pulumi.get_stack()
+
 # build our backend image!
 backend_image_name = "backend"
 backend = docker.Image("backend",
@@ -42,8 +44,8 @@ frontend = docker.Image("frontend",
 
 # build our mongodb image!
 mongo_image = docker.RemoteImage("mongo",
-                        name="mongo:4.4.6",
-                        keep_locally=True)
+                                 name="mongo:bionic"
+                                 )
 ```
 
 Try and run your `pulumi up` again at this point. You should see an error like this:
@@ -63,6 +65,8 @@ pulumi config set frontend_port 3001
 pulumi config set backend_port 3000
 pulumi config set mongo_port 27017
 ```
+
+This set of commands creates a file in your directory called `Pulumi.dev.yaml` to store the configuration for this stack.
 
 Now, try and rerun your Pulumi program.
 
@@ -104,10 +108,12 @@ It is important to note something here. In the Container resource, we are refere
 The backend container also requires environment variables to connect to the mongo container and set the node environment for Express.js. These are set in `./app/backend/src/.env`. Like before we can set them using `pulumi config`.
 
 ```bash
-pulumi config set mongo_host mongodb:http://mongo:27017
+pulumi config set mongo_host mongodb://mongo:27017
 pulumi config set database cart
 pulumi config set node_environment development
 ```
+
+And then add them to the top of our program with the rest of the configuration variables.
 
 ## Step 3 - Putting it all together
 
@@ -123,9 +129,9 @@ config = pulumi.Config()
 frontend_port = config.require_int("frontend_port")
 backend_port = config.require_int("backend_port")
 mongo_port = config.require_int("mongo_port")
-mongo_host = config.require_string("mongo_host")
-database = config.require_string("database")
-node_environment = config.require_string("environment")
+mongo_host = config.require("mongo_host") # Note that strings are the default, so it's not `config.require_str`, just `config.require`.
+database = config.require("database")
+node_environment = config.require("node_environment")
 
 # build our backend image!
 backend_image_name = "backend"
