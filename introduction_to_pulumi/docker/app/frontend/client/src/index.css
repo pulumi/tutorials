@@ -77,34 +77,34 @@ ul.react-multi-carousel-track li {
 }
 
 /* Grid items filtering  via css classes */
-.women_items .prod:not(.women_item) {
+.all_items .prod:not(.all_item) {
   display: none !important;
 }
 
-.women_items .prod.women_item {
+.all_items .prod.all_item {
   display: block !important;
 }
 
-.men_items .prod:not(.men_item) {
+.boba_items .prod:not(.boba_item) {
   display: none !important;
 }
 
-.men_items .prod.men_item {
+.boba_items .prod.boba_item {
   display: block !important;
 }
 
-.kid_items .prod:not(.kid_item) {
+.latte_items .prod:not(.latte_item) {
   display: none !important;
 }
 
-.kid_items .prod.kid_item {
+.latte_items .prod.latte_item {
   display: block !important;
 }
 
-.unisex_items .prod:not(.unisex_item) {
+.chills_items .prod:not(.chills_item) {
   display: none !important;
 }
 
-.unisex_items .prod.unisex_item {
+.chills_items .prod.chills_item {
   display: block !important;
 }

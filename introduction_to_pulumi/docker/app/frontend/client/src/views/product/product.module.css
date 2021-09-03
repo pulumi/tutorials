@@ -4,48 +4,45 @@
 }
 
 .view_background {
-  position: absolute;
+  bottom: 0;
   left: 0;
+  position: absolute;
   right: 0;
   top: 0;
-  bottom: 0;
   z-index: 1;
 }
 
 .view_wrapper.full_view {
-  position: fixed;
-  height: 100vh;
   background: var(--background);
+  bottom: 0;
+  height: 100vh;
   left: 0;
+  position: fixed;
   right: 0;
   top: 0;
-  bottom: 0;
   z-index: 2;
 }
 
 .view_foreground {
-  position: absolute;
-  left: 50%;
-  right: 0;
-  height: 50vh;
-  min-height: 400px;
-  bottom: -6px;
-  z-index: 2;
   display: flex;
-  /* display: grid;
-  grid-template-columns: 1fr 1fr; */
+  height: 50vh;
+  left: 50%;
+  min-height: 400px;
+  position: absolute;
+  right: 0;
+  z-index: 2;
 }
 
 .view_controller {
-  padding: 2rem 50px;
+  bottom: 0;
   display: flex;
   justify-content: flex-end;
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
   left: 0;
+  padding: 2rem 50px;
+  position: absolute;
   right: 50%;
-  z-index: 5;
+  z-index: 1;
+  /*z-index: 5;*/
 }
 
 .right_aligned {
@@ -53,38 +50,38 @@
 }
 
 .arrow_btns {
-  height: 50px;
-  width: 140px;
-  position: absolute;
-  left: 50px;
   bottom: 2rem;
+  height: 50px;
+  left: 50px;
+  position: absolute;
+  width: 140px;
   z-index: 10;
 }
 
 .arrow_btns button {
-  border: 1px solid #eee;
   background: #fff;
+  border: 1px solid #eee;
   cursor: pointer;
-  width: 70px;
-  text-align: center;
+  height: 100%;
   line-height: 1;
+  overflow: hidden;
   padding: 10px 0 8px;
   position: relative;
-  height: 100%;
-  overflow: hidden;
+  text-align: center;
   user-select: none;
+  width: 70px;
 }
 
 .arrow_btns button::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  transform: translateX(-100%);
   background-color: var(--black-color);
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateX(-100%);
   transition: all .2s ease-in;
+  width: 100%;
   z-index: 0;
 }
 
@@ -109,8 +106,8 @@
 }
 
 .arrow_btns button:disabled {
-  pointer-events: none;
   opacity: 0.6;
+  pointer-events: none;
 }
 
 .arrow_btns button:hover span {
@@ -118,14 +115,14 @@
 }
 
 .arrow_btns button span {
-  font-size: 32px;
-  opacity: 0.7;
   color: #555;
-  z-index: 1;
-  position: absolute;
+  font-size: 32px;
   left: 50%;
-  top: 50%;
+  opacity: 0.7;
+  position: absolute;
   transform: translate(-50%, -50%);
+  top: 50%;
+  z-index: 1;
 }
 
 .arrow_btns button:hover span {
@@ -133,13 +130,12 @@
 }
 
 .fs_btn button {
+  background: #eee;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
   height: 50px;
   width: 50px;
-  background-color: #fff;
-  border-radius: 50%;
-  border: none;
-  background: #eee;
-  cursor: pointer;
 }
 
 .fs_btn button:hover {
@@ -155,9 +151,9 @@
 }
 
 .fs_btn button span {
+  color: #555;
   font-size: 24px;
   opacity: 0.7;
-  color: #555;
 }
 
 .dark_btn span {
@@ -165,31 +161,31 @@
 }
 
 .product_details {
-  flex: 1;
   background: #fff;
-  padding: 1rem 50px 2rem;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
+  padding: 1rem 50px 2rem;
 }
 
 .details_meta {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
 .breadcrumb {
-  list-style-type: none;
-  padding: 0;
   bottom: 0;
   display: flex;
+  list-style-type: none;
+  padding: 0;
 }
 
 .breadcrumb li {
+  color: #888;
   font-size: 14px;
   font-weight: 400;
-  color: #888;
   text-transform: capitalize;
 }
 
@@ -205,8 +201,8 @@
 .breadcrumb li:not(:last-child)::after {
   content: '/';
   margin: 0 10px;
-  user-select: none;
   opacity: 0.35;
+  user-select: none;
 }
 
 .details_id {
@@ -216,25 +212,25 @@
 /* .details_info {} */
 
 .details_info h2 {
-  font-family: var(--font-family-2);
-  font-weight: 500;
   color: var(--black-color);
+  font-family: var(--font-family-2);
+  font-size: 40px;
+  font-weight: 500;
   margin: 0;
   padding: .5rem 0;
-  font-size: 40px;
 }
 
 .details_info p {
-  margin: .5rem 0;
-  line-height: 1.3;
+  color: #555;
   font-size: 15px;
   font-weight: 300;
-  color: #555;
+  margin: .5rem 0;
+  line-height: 1.3;
 }
 
 .details_more {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
   margin: 20px 0;
 }
@@ -250,21 +246,21 @@
 }
 
 .ratings_reviews {
-  display: flex;
   align-items: center;
   column-gap: 10px;
+  display: flex;
   margin: 10px 0;
 }
 
 .r_count {
+  color: #888;
   font-size: 14px;
   font-weight: 400;
-  color: #888;
 }
 
 .stars {
-  margin-top: 5px;
   color: #999;
+  margin-top: 5px;
 }
 
 .stars span {
@@ -272,54 +268,53 @@
 }
 
 .details_actions {
-  display: flex;
   align-items: center;
   column-gap: 10px;
+  display: flex;
   margin: 10px 0 0;
 }
 
 .size_details {
-  flex: 1;
-  padding: 10px 20px;
-  height: 36px;
-  line-height: 20px;
-  border: 2px solid #eee;
-  display: flex;
   align-items: center;
-  font-size: 14px;
+  border: 2px solid #eee;
   color: #777;
+  display: flex;
+  flex: 1;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1;
+  height: 36px;
   justify-content: space-between;
+  line-height: 20px;
+  padding: 10px 20px;
 }
 
 .size_details span:nth-child(2) {
-  white-space: nowrap;
   max-width: 150px;
   overflow: auto;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
+  white-space: nowrap;
 }
 
 .size_details span:nth-child(2)::-webkit-scrollbar {
-  width: 0 !important;
   height: 0 !important;
+  width: 0 !important;
 }
 
 .action_buy {
-  flex: 1;
+  align-items: center;
   background-color: var(--black-color);
   color: #fff;
-  padding: 10px 20px;
-  height: 40px;
-  line-height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 400;
-  transition: all .2s ease-in;
   cursor: pointer;
+  display: inline-flex;
+  flex: 1;
   font-size: 14px;
+  font-weight: 400;
+  height: 40px;
+  justify-content: space-between;
+  line-height: 20px;
+  padding: 10px 20px;
+  transition: all .2s ease-in;
 }
 
 .action_buy:hover {
@@ -348,44 +343,41 @@
 
 .preview {
   height: 100%;
-  width: 1100px;
   overflow: hidden;
   position: relative;
+  width: 1100px;
 }
 
 .preview_large {
   height: 100%;
-  width: 100%;
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
 .cover {
-  width: 1000px;
-  margin: 0 auto;
-  position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: -50px;
-  margin-left: -100px;
+  margin: -50px auto 0 -100px;
+  position: absolute;
   text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
 }
 
 .cover img {
-  height: 800px;
-  width: 800px;
-  object-fit: contain;
+  height: 50%;
+  object-fit: cover;
   object-position: left center;
+  width: 50%;
 }
 
 .cover_large img {
-  width: 100%;
   height: 1000px;
-  /* max-height: 800px; */
+  margin-top: -200px;
   object-fit: contain;
   object-position: center;
-  margin-top: -200px;
+  width: 100%;
 }
 
 @media screen and (max-width:992px) {
@@ -395,30 +387,30 @@
   }
 
   .view_background {
-    position: relative;
     height: 360px;
+    position: relative;
   }
 
   .view_foreground {
     display: block;
-    position: relative;
     left: 0;
+    position: relative;
   }
 
   .cover {
-    position: relative;
     left: 0;
-    top: 0;
-    width: 100%;
-    transform: none;
     margin-top: -150px;
+    position: relative;
+    top: 0;
+    transform: none;
+    width: 100%;
   }
 
   .cover img {
     height: 600px;
-    width: 600px;
     object-fit: contain;
     object-position: center;
+    width: 600px;
   }
 
   .view_controller {
@@ -430,16 +422,16 @@
   }
 
   .arrow_btns {
-    height: 50px;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    z-index: 10;
-    right: 0;
-    transform: translateY(-50%);
-    justify-content: space-between;
     display: flex;
+    height: 50px;
+    justify-content: space-between;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
   }
 
 }
@@ -457,14 +449,14 @@
   }
 
   .details_meta {
-    flex-direction: column-reverse;
     align-items: flex-start;
+    flex-direction: column-reverse;
     padding-top: 1rem;
   }
 
   .details_more {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
   }
 
   .details_actions {
@@ -472,13 +464,9 @@
     grid-template-columns: 1fr 60px;
     margin-left: -4px;
     margin-right: -4px;
-    /* flex-direction: column; */
-    /* align-items: stretch; */
-    /* height: 140px; */
   }
 
   .details_actions>div {
-    /* margin-bottom: 10px; */
     border-radius: 30px;
   }
 
@@ -490,7 +478,4 @@
   .buy_text {
     display: none;
   }
-
-
-
 }

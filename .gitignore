@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+# IDE directory
+.idea/
+*/.idea/
+
+#test dir
+boba_shop/
+
+#React build dir
+*/app/frontend/client/build/

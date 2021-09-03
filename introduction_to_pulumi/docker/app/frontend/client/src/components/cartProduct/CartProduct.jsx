@@ -4,6 +4,14 @@ import { useContext } from 'react';
 import { CartContext } from '../../context/cartContext';
 import style from '../../views/cart/cart.module.css';
 
+function importAllImages(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('../../', '')] = r(item); });
+  return images;
+}
+
+const images = importAllImages(require.context('../../img', false, /\.png$/));
+
 const CartProduct = ({ cartItem }) => {
   const { removeProduct, qtyUpdate } = useContext(CartContext);
   const [qty, setQty] = useState(0);
@@ -33,19 +41,19 @@ const CartProduct = ({ cartItem }) => {
     let cust = '';
     switch (code) {
       case 1:
-        cust = "Everyone's";
+        cust = "Tasty";
         break;
       case 2:
-        cust = "Men's";
+        cust = "Yummy";
         break;
       case 3:
-        cust = "Women's";
+        cust = "Delightful";
         break;
       case 5:
-        cust = "Kids's";
+        cust = "Scrumptious";
         break;
       default:
-        cust = 'Unisex';
+        cust = "Delicious";
         break;
     }
     return cust;
@@ -61,14 +69,14 @@ const CartProduct = ({ cartItem }) => {
         </div>
         <div className={style.item_image}>
           <img
-            src={cartItem.product.images[0].src}
+            src={cartItem.product.images[0].src ? images[`./${cartItem.product.images[0].src}`].default : ""}
             alt={cartItem.product.name}
           />
         </div>
         <div className={style.item_details}>
           <h3>{cartItem.product.name}</h3>
           <div className={style.item_meta}>
-            {getCustomerType(cartItem.product.customerType)}{' '}
+            {getCustomerType(cartItem.product.teaType)}{' '}
             {cartItem.product.category}
           </div>
         </div>
