@@ -1,8 +1,6 @@
 name: serverless-cloudflare-typescript
 runtime: nodejs
-
 template:
-  name: serverless-cloudflare-typescript
   description: A TypeScript program to deploy a serverless application on Cloudflare.
   config:
     cloudflare:apiToken:
