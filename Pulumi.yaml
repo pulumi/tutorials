@@ -1,3 +1,13 @@
 name: serverless-cloudflare-typescript
 runtime: nodejs
-description: A TypeScript program to deploy a serverless application on Cloudflare.
+
+template:
+  description: A TypeScript program to deploy a serverless application on Cloudflare.
+  config:
+    cloudflare:apiToken:
+      secure: true
+      description: "A Cloudflare API Token with permissions to edit the resources in this tutorial"
+    accountId:
+      description: "A valid Cloudflare Account ID"
+    zoneId:
+       description: "A valid Cloudflare Zone ID"
