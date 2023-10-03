@@ -1,5 +1,4 @@
 /bin/
 /node_modules/
-Pulumi.dev.yaml
 package-lock.json
 typescript-end.ts
