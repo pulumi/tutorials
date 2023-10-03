@@ -1,4 +1,5 @@
-name: serverless-cloudflare-typescript
+name: ${PROJECT}
+description: ${DESCRIPTION}
 runtime: nodejs
 template:
   description: A TypeScript program to deploy a serverless application on Cloudflare.
