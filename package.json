@@ -1,5 +1,5 @@
 {
-    "name": "${PROJECT}",
+    "name": "serverless-cloudflare-typescript",
     "devDependencies": {
         "@types/node": "^18"
     },

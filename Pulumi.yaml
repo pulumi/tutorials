@@ -1,13 +1,18 @@
-name: ${PROJECT}
+name: serverless-cloudflare-typescript
 description: ${DESCRIPTION}
 runtime: nodejs
 template:
   description: A TypeScript program to deploy a serverless application on Cloudflare.
   config:
+    # https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
     cloudflare:apiToken:
       secure: true
       description: "A Cloudflare API Token with permissions to edit the resources in this tutorial"
+    # https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/
     accountId:
       description: "A valid Cloudflare Account ID"
     zoneId:
-       description: "A valid Cloudflare Zone ID"
+      description: "A valid Cloudflare Zone ID"
+    # https://developers.cloudflare.com/fundamentals/setup/account-setup/add-site/
+    domain:
+      description: "A valid, configured Cloudflare-controlled domain"
