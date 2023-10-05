@@ -1,4 +1,4 @@
-name: ${PROJECT}
+# name: ${PROJECT}
 description: ${DESCRIPTION}
 runtime: nodejs
 template:
