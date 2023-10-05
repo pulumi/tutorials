@@ -1,4 +1,4 @@
-name: serverless-cloudflare-typescript
+name: ${PROJECT}
 description: ${DESCRIPTION}
 runtime: nodejs
 template:

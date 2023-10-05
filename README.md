@@ -1,5 +1,4 @@
-# Tutorial: Deploy a "Hello World" Cloudflare Worker via Pulumi
-
+# Tutorial: Deploy a "Hello World" Cloudflare Worker with Pulumi
 
 The main files are:
 
