@@ -10,12 +10,12 @@ const domain = config.require("domain")
 // An Output to test the settings are set up correctly
 export const myFirstOutput = "accountId: " + accountId + ", zoneId:" + zoneId + ", domain: " + domain
 
-// A Worker scrpit to invoke
+// A Worker script to invoke
 export const script = new cloudflare.WorkerScript("hello-world-script", {
   accountId: accountId,
   name: "hello-world",
   // Read the content of the worker from a file
-  content: fs.readFileSync("./app/index.ts", "utf8"),
+  content: fs.readFileSync("./app/worker.ts", "utf8"),
 });
 
 // A Worker route to serve requests and the Worker script
