@@ -7,9 +7,6 @@ const accountId = config.require("accountId");
 const zoneId = config.require("zoneId");
 const domain = config.require("domain")
 
-// An Output to test the settings are set up correctly
-export const myFirstOutput = "accountId: " + accountId + ", zoneId:" + zoneId + ", domain: " + domain
-
 // A Worker script to invoke
 export const script = new cloudflare.WorkerScript("hello-world-script", {
   accountId: accountId,
@@ -34,3 +31,6 @@ export const record = new cloudflare.Record("hello-world-record", {
   type: "A",
   proxied: true
 });
+
+// An Output to test the settings are set up correctly
+export const url = route.pattern
