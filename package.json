@@ -8,7 +8,7 @@
     "typescript": "^4.0.0"
   },
   "name": "${PROJECT}",
-  "description": "The main files are:",
+  "description": "A TypeScript program to deploy a serverless application on Cloudflare.",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
