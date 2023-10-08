@@ -6,7 +6,7 @@
     "@pulumi/pulumi": "^3.86.0",
     "typescript": "^4.0.0"
   },
-  "name": "serverless-cloudflare",
+  "name": "${PROJECT}",
   "description": "A TypeScript program to deploy a serverless application on Cloudflare.",
   "version": "1.0.0",
   "main": "index.ts",
