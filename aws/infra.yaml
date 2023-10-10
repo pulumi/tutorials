@@ -82,7 +82,6 @@ Resources:
             import boto3
 
             def lambda_handler(event, context):
-                print(json.dumps(event))
                 return{
                     'statusCode': 200,
                     'body': json.dumps('You have reached the simulated DEV endpoint.')
@@ -103,7 +102,6 @@ Resources:
             import boto3
 
             def lambda_handler(event, context):
-                print(json.dumps(event))
                 return{
                     'statusCode': 200,
                     'body': json.dumps('You have reached the simulated TEST endpoint.')
@@ -132,7 +130,6 @@ Resources:
             TEST_API_KEY = os.environ['TEST_API_KEY']
 
             def lambda_handler(event, context):
-              print(json.dumps(event))
               isAuthorized = False
 
               rawPath = event["rawPath"]
