@@ -267,7 +267,7 @@ Outputs:
     Value: !Sub '${HttpApi.ApiEndpoint}/test'
   DevApiKeySecretName:
     Description: "The Secrets Manager secret name for the DEV API key"
-    Value: !Sub "${deploymentId}-${devApiKeySecretName}"
+    Value: !Sub "${devApiKeySecretName}-${deploymentId}"
   TestApiKeySecretName:
     Description: "The Secrets Manager secret name for the Test API key"
-    Value: !Sub "${deploymentId}-${testApiKeySecretName}"
+    Value: !Sub "${testApiKeySecretName}-${deploymentId}"
