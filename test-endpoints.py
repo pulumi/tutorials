@@ -13,7 +13,7 @@ if "dev" in env.lower():
 elif "test" in env.lower():
     url = f"{base_url}/test"
 else:
-    raise Exception("Please provide a valid environment (dev or test)."
+    raise Exception("Please provide a valid environment (dev or test).")
 
 payload = json.dumps({})
 headers = {
