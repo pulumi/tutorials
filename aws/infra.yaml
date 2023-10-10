@@ -28,7 +28,7 @@ Resources:
   DevApiKeySecret:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
-      Name: !Sub "${deploymentId}-${devApiKeySecretName}"
+      Name: !Sub "${devApiKeySecretName}-${deploymentId}"
       Description: "The API key for the development environment"
       GenerateSecretString:
         PasswordLength: 20
@@ -37,7 +37,7 @@ Resources:
   TestApiKeySecret:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
-      Name: !Sub "${deploymentId}-${testApiKeySecretName}"
+      Name: !Sub "${testApiKeySecretName}-${deploymentId}"
       Description: "The API key for the test environment"
       GenerateSecretString:
         PasswordLength: 20
