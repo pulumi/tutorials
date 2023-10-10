@@ -8,7 +8,7 @@ aws cloudformation deploy \
 --template-file aws/infra.yaml \
 --stack-name pulumi-esc-tutorial-stack-$projectId \
 --capabilities CAPABILITY_IAM \
---parameter-overrides deploymentId=$projectId\
+--parameter-overrides deploymentId=$projectId
 
 echo "Please see the below for your application output values: "
 
