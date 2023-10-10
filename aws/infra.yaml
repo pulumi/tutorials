@@ -3,6 +3,10 @@ Description: Deploys an HTTP API Gateway with a custom lambda authorizer and two
 
 Parameters:
 
+  deploymentId:
+    Type: String
+    Description: A randomly generated number to attached to resources
+
   apiGatewayHTTPMethod:
     Type: String
     Default: POST
@@ -24,7 +28,7 @@ Resources:
   DevApiKeySecret:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
-      Name: !Ref devApiKeySecretName
+      Name: !Sub "${devApiKeySecretName}-${deploymentId}"
       Description: "The API key for the development environment"
       GenerateSecretString:
         PasswordLength: 20
@@ -33,7 +37,7 @@ Resources:
   TestApiKeySecret:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
-      Name: !Ref testApiKeySecretName
+      Name: !Sub "${testApiKeySecretName}-${deploymentId}"
       Description: "The API key for the test environment"
       GenerateSecretString:
         PasswordLength: 20
@@ -46,7 +50,6 @@ Resources:
   EscTutorialLambdaRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: "esc-tutorial-lambda-role"
       Description: An execution role for the Lambda functions
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
@@ -68,7 +71,6 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Description: Simulates the response for a DEV endpoint
-      FunctionName: esc-tutorial-dev-endpoint
       Handler: index.lambda_handler
       MemorySize: 128
       Runtime: python3.11
@@ -90,7 +92,6 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Description: Simulates the response for a TEST endpoint
-      FunctionName: esc-tutorial-test-endpoint
       Handler: index.lambda_handler
       MemorySize: 128
       Runtime: python3.11
@@ -113,7 +114,6 @@ Resources:
     DependsOn: [ TestApiKeySecret, DevApiKeySecret]
     Properties:
       Description: Checks if the incoming request is authorized to reach the endpoints
-      FunctionName: esc-tutorial-lambda-authorizer
       Handler: index.lambda_handler
       MemorySize: 128
       Runtime: python3.11
@@ -158,7 +158,7 @@ Resources:
   HttpApi:
     Type: AWS::ApiGatewayV2::Api
     Properties:
-      Name: pulumi-esc-tutorial-api
+      Name: !Sub "pulumi-esc-tutorial-api-${deploymentId}"
       Description: HTTP API for Pulumi ESC
       ProtocolType: HTTP
 
@@ -264,7 +264,7 @@ Outputs:
     Value: !Sub '${HttpApi.ApiEndpoint}/test'
   DevApiKeySecretName:
     Description: "The Secrets Manager secret name for the DEV API key"
-    Value: !Ref devApiKeySecretName
+    Value: !Sub "${devApiKeySecretName}-${deploymentId}"
   TestApiKeySecretName:
     Description: "The Secrets Manager secret name for the Test API key"
-    Value: !Ref testApiKeySecretName
+    Value: !Sub "${testApiKeySecretName}-${deploymentId}"
