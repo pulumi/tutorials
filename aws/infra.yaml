@@ -121,8 +121,8 @@ Resources:
       Timeout: 60
       Environment:
         Variables:
-          DEV_API_KEY: !Sub '{{resolve:secretsmanager:${devApiKeySecretName}}}'
-          TEST_API_KEY: !Sub '{{resolve:secretsmanager:${testApiKeySecretName}}}'
+          DEV_API_KEY: !Sub '{{resolve:secretsmanager:${devApiKeySecretName}-${deploymentId}}}'
+          TEST_API_KEY: !Sub '{{resolve:secretsmanager:${testApiKeySecretName}-${deploymentId}}}'
       Code:
         ZipFile: |
             import json
