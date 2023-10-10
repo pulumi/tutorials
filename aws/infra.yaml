@@ -1,0 +1,270 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deploys an HTTP API Gateway with a custom lambda authorizer and two lambda functions that simulate a dev and test endpoint.
+
+Parameters:
+
+  apiGatewayHTTPMethod:
+    Type: String
+    Default: POST
+
+  devApiKeySecretName:
+    Type: String
+    Default: "escDevApiKey"
+
+  testApiKeySecretName:
+    Type: String
+    Default: "escTestApiKey"
+
+Resources:
+
+#############################
+# Secrets Manager Resources #
+#############################
+
+  DevApiKeySecret:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Ref devApiKeySecretName
+      Description: "The API key for the development environment"
+      GenerateSecretString:
+        PasswordLength: 20
+        ExcludePunctuation: true
+
+  TestApiKeySecret:
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: !Ref testApiKeySecretName
+      Description: "The API key for the test environment"
+      GenerateSecretString:
+        PasswordLength: 20
+        ExcludePunctuation: true
+
+#############################
+####### IAM Resources #######
+#############################
+
+  EscTutorialLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "esc-tutorial-lambda-role"
+      Description: An execution role for the Lambda functions
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action:
+          - 'sts:AssumeRole'
+          
+#############################
+###### Lambda Resources #####
+#############################
+
+  DevLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: Simulates the response for a DEV endpoint
+      FunctionName: esc-tutorial-dev-endpoint
+      Handler: index.lambda_handler
+      MemorySize: 128
+      Runtime: python3.11
+      Role: !GetAtt 'EscTutorialLambdaRole.Arn'
+      Timeout: 60
+      Code:
+        ZipFile: |
+            import json
+            import boto3
+
+            def lambda_handler(event, context):
+                print(json.dumps(event))
+                return{
+                    'statusCode': 200,
+                    'body': json.dumps('You have reached the simulated DEV endpoint.')
+                }
+                
+  TestLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: Simulates the response for a TEST endpoint
+      FunctionName: esc-tutorial-test-endpoint
+      Handler: index.lambda_handler
+      MemorySize: 128
+      Runtime: python3.11
+      Role: !GetAtt 'EscTutorialLambdaRole.Arn'
+      Timeout: 60
+      Code:
+        ZipFile: |
+            import json
+            import boto3
+
+            def lambda_handler(event, context):
+                print(json.dumps(event))
+                return{
+                    'statusCode': 200,
+                    'body': json.dumps('You have reached the simulated TEST endpoint.')
+                }
+  
+  AuthorizerLambdaFunction:
+    Type: AWS::Lambda::Function
+    DependsOn: [ TestApiKeySecret, DevApiKeySecret]
+    Properties:
+      Description: Checks if the incoming request is authorized to reach the endpoints
+      FunctionName: esc-tutorial-lambda-authorizer
+      Handler: index.lambda_handler
+      MemorySize: 128
+      Runtime: python3.11
+      Role: !GetAtt 'EscTutorialLambdaRole.Arn'
+      Timeout: 60
+      Environment:
+        Variables:
+          DEV_API_KEY: !Sub '{{resolve:secretsmanager:${devApiKeySecretName}}}'
+          TEST_API_KEY: !Sub '{{resolve:secretsmanager:${testApiKeySecretName}}}'
+      Code:
+        ZipFile: |
+            import json
+            import os
+
+            DEV_API_KEY = os.environ['DEV_API_KEY']
+            TEST_API_KEY = os.environ['TEST_API_KEY']
+
+            def lambda_handler(event, context):
+              print(json.dumps(event))
+              isAuthorized = False
+
+              rawPath = event["rawPath"]
+              requestApiKey = event["identitySource"]
+              devApiKey = DEV_API_KEY
+              testApiKey = TEST_API_KEY
+              
+              if "/dev" in rawPath and devApiKey in requestApiKey:
+                isAuthorized = True
+              elif "/test" in rawPath and testApiKey in requestApiKey:
+                isAuthorized = True
+              
+              response = {
+                  "isAuthorized": isAuthorized,
+              }
+
+              return response
+  
+#############################
+##### HTTP API Resources ####
+#############################
+
+  HttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: pulumi-esc-tutorial-api
+      Description: HTTP API for Pulumi ESC
+      ProtocolType: HTTP
+
+  HttpApiStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      StageName: $default
+      AutoDeploy: true
+      ApiId: !Ref HttpApi  
+
+  LambdaAuthorizer:
+    Type: 'AWS::ApiGatewayV2::Authorizer'
+    Properties:
+      ApiId: !Ref HttpApi
+      AuthorizerPayloadFormatVersion: 2.0
+      AuthorizerType: 'REQUEST'
+      AuthorizerUri:
+        Fn::Sub:
+          - 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations'
+          - LambdaArn: !GetAtt AuthorizerLambdaFunction.Arn
+      EnableSimpleResponses: true
+      IdentitySource:
+        - '$request.header.ApiKey'
+      Name: 'LambdaAuthorizer'
+
+  DevLambdaApiIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      Description: DEV endpoint Lambda proxy integration
+      ApiId: !Ref HttpApi
+      IntegrationMethod: !Ref apiGatewayHTTPMethod
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub 'arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DevLambdaFunction.Arn}/invocations'
+      PayloadFormatVersion: "2.0"
+
+  TestLambdaApiIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      Description: TEST endpoint Lambda proxy integration
+      ApiId: !Ref HttpApi
+      IntegrationMethod: !Ref apiGatewayHTTPMethod
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub 'arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${TestLambdaFunction.Arn}/invocations'
+      PayloadFormatVersion: "2.0"
+
+  DevRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: !Sub '${apiGatewayHTTPMethod} /dev'
+      AuthorizationType: 'CUSTOM'
+      AuthorizerId: !Ref LambdaAuthorizer
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref DevLambdaApiIntegration
+
+  TestRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: !Sub '${apiGatewayHTTPMethod} /test'
+      AuthorizationType: 'CUSTOM'
+      AuthorizerId: !Ref LambdaAuthorizer
+      Target: !Join
+        - /
+        - - integrations
+          - !Ref TestLambdaApiIntegration
+
+  DevRouteLambdaInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt DevLambdaFunction.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${HttpApi}/*/*/*"
+
+  TestRouteLambdaInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt TestLambdaFunction.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${HttpApi}/*/*/*"
+      
+  AuthorizerLambdaInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt AuthorizerLambdaFunction.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${HttpApi}/authorizers/*"
+
+Outputs:
+  ApplicationEndpointUrl:
+    Description: "The base endpoint URL for the sample application"
+    Value: !Sub '${HttpApi.ApiEndpoint}'
+  DevEndpointUrl:
+    Description: "The URL path for the DEV service endpoint"
+    Value: !Sub '${HttpApi.ApiEndpoint}/dev'
+  TestEndpointUrl:
+    Description: "The URL path for the TEST service endpoint"
+    Value: !Sub '${HttpApi.ApiEndpoint}/test'
+  DevApiKeySecretName:
+    Description: "The Secrets Manager secret name for the DEV API key"
+    Value: !Ref devApiKeySecretName
+  TestApiKeySecretName:
+    Description: "The Secrets Manager secret name for the Test API key"
+    Value: !Ref testApiKeySecretName

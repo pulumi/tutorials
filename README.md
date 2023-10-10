@@ -1,11 +1,19 @@
-# Pulumi Tutorials
+# Get Started with Pulumi ESC - Sample Application
 
-These hands-on tutorials show how to use Pulumi to build, deploy, and manage cloud infrastructure and applications
+This branch holds the companion code for the sample application found in the beginning of the [Get Started with Pulumi Environments, Secrets, and Configuration](/docs/using-pulumi/esc/get-started/) tutorial.
 
-## How to Use the Tutorials Repo
+## How to Use this Code
 
-This repository uses a named branching system, with each branch corresponding to its associated tutorial.
+Clone this repository locally to your machine and checkout the `pulumi-esc-get-started`
 
-The tutorial will typically provide the direct link to the branch and instructions for how to engage with its content.
+```bash
+git clone -b pulumi-esc-get-started --single-branch https://github.com/pulumi/tutorials.git
+```
 
-You can also select the branch of the corresponding Pulumi tutorial and follow the instructions presented there.
+Navigate to the root of the repo and deploy the application resources using the following commands:
+
+```bash
+cd pulumi-esc-get-started
+. ./cfn-deploy.sh
+```
+Then follow the remaining steps in the tutorial.
