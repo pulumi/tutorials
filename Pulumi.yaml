@@ -1,0 +1,16 @@
+name: ${PROJECT}
+description: ${DESCRIPTION}
+runtime: nodejs
+template:
+  description: A TypeScript program to add a site on Cloudflare.
+  config:
+    # https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
+    cloudflare:apiToken:
+      secure: true
+      description: "A Cloudflare API Token with permissions to edit the resources in this tutorial "
+    # https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/
+    accountId:
+      description: "A valid Cloudflare Account ID"
+    # https://developers.cloudflare.com/fundamentals/setup/account-setup/add-site/
+    domain:
+      description: "Your existing domain to bring under Cloudflare (example.com)"

@@ -1,11 +1,9 @@
-# Pulumi Tutorials
+# Tutorial: Add your existing domain (Zone) to Cloudflare with Pulumi IaC
 
-These hands-on tutorials show how to use Pulumi to build, deploy, and manage cloud infrastructure and applications
+The main files are:
 
-## How to Use the Tutorials Repo
-
-This repository uses a named branching system, with each branch corresponding to its associated tutorial.
-
-The tutorial will typically provide the direct link to the branch and instructions for how to engage with its content.
-
-You can also select the branch of the corresponding Pulumi tutorial and follow the instructions presented there.
+- index.ts (main pulumi program file)
+- Pulumi.yaml (stack configuration template)
+- Pulumi.dev.yaml (stack configuration instance). Created later.
+- package.json (Node.js package information for dependencies)
+- tsconfig.json (TypeScript compiler options)
