@@ -7,7 +7,7 @@ template:
     # https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
     cloudflare:apiToken:
       secure: true
-      description: "A Cloudflare API Token with permissions to edit the resources in this tutorial "
+      description: "A Cloudflare API Token with permissions to edit the resources in this tutorial"
     # https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/
     accountId:
       description: "A valid Cloudflare Account ID"
