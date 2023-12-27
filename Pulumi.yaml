@@ -2,4 +2,4 @@ name: testing-unit-go-stackreferences
 description: ${DESCRIPTION}
 runtime: go
 template:
-  description: A minimal Go Pulumi program to mock StackReferences.
+  description: A minimal Go Pulumi program to mock a StackReference.

@@ -1,7 +1,7 @@
 package main
 
-import "testing-unit-go-stackreferences/dev"
+import "testing-unit-go-stackreferences/devstack"
 
 func main() {
-	dev.Go()
+	devstack.Go()
 }
